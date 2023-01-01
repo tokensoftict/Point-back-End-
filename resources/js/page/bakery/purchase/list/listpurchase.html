@@ -1,0 +1,51 @@
+<div class="row layout-top-spacing">
+    <div class="col-12 layout-spacing">
+        <div class="panel br-6 statbox box box-shadow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>  Today's Material Purchase List</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="custom-table panel-body p-0">
+                    <v-client-table :data="tableData" ref="customer_table" :columns="columns" :options="options">
+                        <template #beforeFilter>
+                            <router-link to="/bakeryManager/purchase/add" class="btn me-2 btn-primary">New Material Purchase
+                                <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="feather feather-plus"
+                            >
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            </router-link>
+                        </template>
+
+                        <template #Status="props">
+                            <span class="badge me-1" :class="'badge-'+props.row.Status.label">{{ props.row.Status.name }}</span>
+                        </template>
+
+                        <template #No="props">
+                           {{ props.index }}
+                        </template>
+
+                        <template #Action="props">
+                            <router-link :to="{ name : 'show-purchase-Material',  params: {id: props.row.id} }" class=" text-white btn btn-sm btn-primary"><i class="far fa-1x fa-eye"></i></router-link>
+                        </template>
+                    </v-client-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,54 @@
+.vue-form-wizard .navbar .navbar-nav > li > a.wizard-btn,
+.vue-form-wizard .wizard-btn {
+    min-width: inherit;
+}
+.vue-form-wizard .navbar .navbar-nav > li > a.wizard-btn:hover,
+.vue-form-wizard .wizard-btn:hover {
+    opacity: 0.8;
+}
+
+.vue-form-wizard.pills .wizard-nav li.active .wizard-icon-circle > div {
+    border-radius: 20px;
+}
+.vue-form-wizard.pills.text-only .wizard-nav li .stepTitle {
+    position: absolute;
+    top: 9px;
+    color: #3b3f5c !important;
+}
+.vue-form-wizard.pills.text-only .wizard-nav li .stepTitle.active {
+    color: #fff !important;
+}
+.vue-form-wizard.pills.text-only .wizard-nav li .wizard-icon {
+    display: none !important;
+}
+.vue-form-wizard .wizard-icon-circle.tab_shape {
+    border-radius: 50px;
+}
+.vue-form-wizard.pills .wizard-navigation .wizard-progress-with-circle {
+    height: 0px;
+}
+
+
+.select2 .multiselect__option--highlight {
+    background: #fff;
+    color: #4361ee;
+}
+.select2 .multiselect__option--selected {
+    background-color: rgba(27, 85, 226, 0.23921568627450981);
+    color: #4361ee;
+    font-weight: normal;
+}
+.select2 .multiselect__option--disabled {
+    background: inherit !important;
+}
+.select2 .multiselect__tag {
+    color: #000;
+    background: #e4e4e4;
+}
+.select2 .multiselect__tag-icon:after {
+    color: #000 !important;
+}
+.select2 .multiselect__tag-icon:focus,
+.select2 .multiselect__tag-icon:hover {
+    background: inherit;
+}

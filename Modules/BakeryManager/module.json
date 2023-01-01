@@ -1,0 +1,11 @@
+{
+    "name": "BakeryManager",
+    "alias": "bakerymanager",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BakeryManager\\Providers\\BakeryManagerServiceProvider"
+    ],
+    "files": []
+}

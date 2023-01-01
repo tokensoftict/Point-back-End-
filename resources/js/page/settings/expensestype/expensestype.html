@@ -1,0 +1,94 @@
+
+<teleport to="body">
+    <div class="modal fade" id="editExpensestype" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Expenses Type</h5>
+                    <button type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" class="btn-close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <app-textbox  ref="update_name" :design="'sm'" key="update_name" :validate="true" :error-msg="'Enter expenses type'"  :name="'update_name'"  :type="'text'"  :model="'update_name'" :placeholder="'Name'"></app-textbox>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <app-button ref="update_button"  :click="updateExpensestype">Save Changes</app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</teleport>
+
+<div class="row layout-top-spacing">
+    <div class="col-8 layout-spacing">
+        <div class="panel br-6 statbox box box-shadow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Expenses Type List</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="custom-table panel-body p-0">
+                    <v-client-table :data="tableData" ref="expenses_table" :columns="columns" :options="options">
+                        <template #status="props">
+                            <span v-if="props.row.status === true"  class="badge inv-status badge-success">Active</span>
+                            <span v-if="props.row.status === false"  class="badge inv-status badge-warning">Inactive</span>
+                        </template>
+                        <template #action="props">
+                            <a href="javascript:;"  class=" btn btn-sm btn-primary" @click="edit(props.row)">
+                                <i class="far fa-1x fa-edit"></i>
+                            </a>
+
+                            &nbsp; &nbsp;
+
+                            <a href="javascript:;" class=" btn btn-sm btn-danger" @click="delete_row(props.row.id)">
+                                <i class="far fa-1x fa-trash-alt"></i>
+                            </a>
+
+                            &nbsp; &nbsp;
+
+                            <a href="javascript:;" class=" text-white btn btn-sm btn-dark" @click="toggle(props.row.id)">
+                                <i class="far fa-1x fa-hourglass"></i>
+                            </a>
+
+                        </template>
+                    </v-client-table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 layout-spacing">
+        <div class="panel br-6 statbox box box-shadow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>New Expenses Type</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="panel-body p-0">
+                    <form>
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <app-textbox ref="name" :design="'sm'" key="name" :validate="true" :error-msg="'Enter expenses type'"  :name="'name'"  :type="'text'"  :model="'name'" :placeholder="'Name'"></app-textbox>
+                        </div>
+
+                        <div class="field-wrapper">
+                            <app-button ref="submit_button"  :click="save">Save</app-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

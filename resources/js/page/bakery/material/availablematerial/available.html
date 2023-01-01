@@ -1,0 +1,48 @@
+<div class="row layout-top-spacing">
+    <div class="col-12 layout-spacing">
+        <div class="panel br-6 statbox box box-shadow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Raw Material List</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="custom-table panel-body p-0">
+                    <v-client-table :data="tableData" ref="available_material" :columns="columns" :options="options">
+
+                        <template #No="props">
+                            {{ props.index }}
+                        </template>
+
+                        <template #Quantity="props">
+                            {{ props.row.quantity }}
+                        </template>
+
+                        <template #status="props">
+                            <span v-if="props.row.status === true"  class="badge inv-status badge-success">Active</span>
+                            <span v-if="props.row.status === false"  class="badge inv-status badge-warning">Inactive</span>
+                        </template>
+                        <template #type="props">
+                            {{ props.row.materialtype.name }}
+                        </template>
+
+                        <template #action="props">
+                            <a href="javascript:;"  class=" btn btn-sm btn-primary" @click="edit(props.row)">
+                                <i class="far fa-1x fa-edit"></i>
+                            </a>
+
+                            &nbsp; &nbsp;
+
+                            <a href="javascript:;" class=" text-white btn btn-sm btn-dark" @click="toggle(props.row.id)">
+                                <i class="far fa-1x fa-hourglass"></i>
+                            </a>
+
+                        </template>
+                    </v-client-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

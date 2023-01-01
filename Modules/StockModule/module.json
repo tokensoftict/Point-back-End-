@@ -1,0 +1,11 @@
+{
+    "name": "StockModule",
+    "alias": "stockmodule",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\StockModule\\Providers\\StockModuleServiceProvider"
+    ],
+    "files": []
+}

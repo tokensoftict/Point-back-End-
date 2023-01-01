@@ -1,0 +1,15 @@
+{
+    "Auth": true,
+    "Reviews": true,
+    "Resources": true,
+    "Settings": true,
+    "ProductCategory": true,
+    "Resource": true,
+    "BankResource": true,
+    "BakeryManager": true,
+    "CustomerManagerModule": true,
+    "CustomerManager": true,
+    "PaymentManager": true,
+    "PurchaseOrders": true,
+    "StockModule": true
+}

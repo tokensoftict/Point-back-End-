@@ -1,0 +1,158 @@
+
+<teleport to="body">
+    <div class="modal fade" id="editCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Customer</h5>
+                    <button type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" class="btn-close"></button>
+                </div>
+                <div class="modal-body">
+                    <form ref="updateform">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <app-textbox ref="update_firstname" :design="'sm'" key="update_firstname" :validate="true" :error-msg="'Enter First Name'"  :name="'update_firstname'"  :type="'text'"  :model="'update_firstname'" :placeholder="'First Name'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Lastname</label>
+                            <app-textbox ref="update_lastname" validate="'true'" :design="'sm'" key="update_lastname"  :name="'update_lastname'"  :error-msg="'Enter Last Name'" :type="'text'"  :model="'update_lastname'" :placeholder="'Lastname'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Company</label>
+                            <app-textbox ref="update_company_name" :design="'sm'" key="update_company_name"  :name="'update_company_name'"  :type="'text'"  :model="'update_company_name'" :placeholder="'Company Name'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <app-textbox ref="update_phone_number" validate="'true'" :design="'sm'" key="update_phone_number"  :name="'update_phone_number'"  :error-msg="'Enter Phone Number'" :type="'text'"  :model="'update_phone_number'" :placeholder="'Phone Number'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <app-textbox ref="update_email" :design="'sm'" key="update_email"  :name="'update_email'"  :type="'text'"  :model="'update_email'" :placeholder="'Email Address'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Address</label>
+                            <app-textarea ref="update_address" :design="'sm'" key="update_address"  :name="'update_address'"  :type="'text'"  :model="'update_address'" :placeholder="'Address'"></app-textarea>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <app-button ref="update_button"  :click="updateCustomer">Save Changes</app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</teleport>
+
+
+<teleport to="body">
+    <div class="modal fade" id="newCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Customer</h5>
+                    <button type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" class="btn-close"></button>
+                </div>
+                <div class="modal-body">
+                    <form ref="newform">
+
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <app-textbox ref="firstname" :design="'sm'" key="firstname" :validate="true" :error-msg="'Enter First Name'"  :name="'firstname'"  :type="'text'"  :model="'firstname'" :placeholder="'First Name'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Lastname</label>
+                            <app-textbox ref="lastname" validate="'true'" :design="'sm'" key="lastname"  :name="'lastname'"  :error-msg="'Enter Last Name'" :type="'text'"  :model="'lastname'" :placeholder="'Lastname'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Company</label>
+                            <app-textbox ref="company_name" :design="'sm'" key="company_name"  :name="'company_name'"  :type="'text'"  :model="'company_name'" :placeholder="'Company Name'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <app-textbox ref="phone_number" validate="'true'" :design="'sm'" key="phone_number"  :name="'phone_number'"  :error-msg="'Enter Phone Number'" :type="'text'"  :model="'phone_number'" :placeholder="'Phone Number'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <app-textbox ref="email" :design="'sm'" key="email"  :name="'email'"  :type="'text'"  :model="'email'" :placeholder="'Email Address'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Address</label>
+                            <app-textarea ref="address" :design="'sm'" key="address"  :name="'address'"  :type="'text'"  :model="'address'" :placeholder="'Address'"></app-textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <app-button ref="submit_button"  :click="save">Save</app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</teleport>
+
+<div class="row layout-top-spacing">
+    <div class="col-12 layout-spacing">
+        <div class="panel br-6 statbox box box-shadow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Customer List</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="custom-table panel-body p-0">
+                    <v-client-table :data="tableData" ref="customer_table" :columns="columns" :options="options">
+
+                        <template #beforeFilter>
+                            <button class="btn me-2 btn-primary" @click="newModal.show()"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="feather feather-plus"
+                            >
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                                New Customer
+                            </button>
+
+                        </template>
+
+                        <template #action="props">
+                            <a href="javascript:;"  class=" btn btn-sm btn-primary" @click="edit(props.row)">
+                                <i class="far fa-1x fa-edit"></i>
+                            </a>
+
+                            &nbsp; &nbsp;
+
+
+
+                        </template>
+                    </v-client-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

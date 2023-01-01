@@ -1,0 +1,151 @@
+<div class="account-settings-container layout-top-spacing">
+    <div class="account-content">
+        <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+            <form id="myform">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                        <div id="general-info" class="section general-info">
+
+                            <div class="col-lg-12 layout-spacing">
+                                <div class="statbox panel box box-shadow">
+                                    <div class="info">
+                                        <h6 class="">New Production</h6>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <form-wizard :start-index="0" shape="tab" title="New Production" subtitle="Create New Production" class="pills" color="#4361ee">
+                                                    <tab-content title="Information"  icon="far fa-question-circle">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                        <label>Name</label>
+                                                                        <app-textbox ref="name" :design="'sm'" key="name" :validate="true" :error-msg="'Enter ProductionName'"  :name="'name'"  :type="'text'"  :model="'name'" placeholder="Name Production"></app-textbox>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Production Date</label>
+                                                                        <flat-pickr v-model="date" class="form-control form-control-sm flatpickr active" placeholder="Production Date"></flat-pickr>
+                                                                    </div>
+
+
+                                                                    <div class="form-group">
+                                                                        <label>Production Time</label>
+                                                                        <flat-pickr :config="timeConfig" v-model="time" class="form-control form-control-sm flatpickr active" placeholder="Production Time"></flat-pickr>
+                                                                    </div>
+
+
+                                                                    <div class="form-group">
+                                                                        <label>Remark</label>
+                                                                        <app-textarea ref="remark" :design="'sm'" key="remark"  :name="'remark'"  :type="'remark'"  :model="'remark'" placeholder="Remark"></app-textarea>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </tab-content>
+                                                    <tab-content title="Preview and Submit" icon="far fa-lightbulb">
+
+                                                    </tab-content>
+                                                    <tab-content title="Product" icon="far fa-list-alt">
+
+                                                    </tab-content>
+                                                    <tab-content title="Material" icon="far fa-sticky-note">
+                                                        <div class="container">
+                                                            <div class="row">
+
+                                                                <div class="col-12">
+                                                                    <div class="invoice-detail-items">
+                                                                    <div class="row mt-3  justify-content-between">
+                                                                        <div class="col-sm-7">
+                                                                            <label style="white-space: nowrap;">Select Material</label>
+
+                                                                            <multiselect
+                                                                                placeholder="Search for Material"
+                                                                                :searchable="true"
+                                                                                @search-change="getItems"
+                                                                                v-model="selected"
+                                                                                :options="results"
+                                                                                :loading="isLoading"
+                                                                                :internal-search="false"
+                                                                                :clear-on-select="false"
+                                                                                label="name"
+                                                                                :hide-selected="true"
+                                                                            >
+                                                                            </multiselect>
+
+                                                                        </div>
+
+                                                                        <div class="col-sm-3">
+                                                                            <label style="white-space: nowrap;"> Quantity</label>
+                                                                            <app-textbox placeholder="Quantity" validate ref="quantity"  type="number" design="sm" ></app-textbox>
+                                                                        </div>
+
+
+                                                                        <div class="col-sm-2">
+                                                                            <br/>
+                                                                            <app-button style="margin-top:10px" :click="addItem"  class="float-end"  design="primary">Add Stock</app-button>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="invoice-detail-items">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-striped table-striped table-bordered">
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th class="text-start">Material Name</th>
+                                                                                    <th class="text-center">Quantity</th>
+                                                                                    <th class="text-center">Cost Price</th>
+                                                                                    <th class="text-center">Total</th>
+                                                                                    <th class="text-end">Action</th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                <tr v-for="(materialItem, index) in materialItems">
+                                                                                    <td class="text-left">{{ (materialItem.name) }}</td>
+                                                                                    <td class="text-center">{{ (materialItem.quantity) }}</td>
+                                                                                    <td class="text-center">{{ $currency(materialItem.cost_price) }}</td>
+                                                                                    <td class="text-center">{{ $currency((materialItem.cost_price * materialItem.quantity))  }}</td>
+                                                                                    <td class="text-right">
+                                                                                        <button @click="removeItem(index)" class="btn btn-sm btn-danger float-end">Remove</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                                <tfoot>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                    <td class="text-end">Total</td>
+                                                                                    <td class="text-end" id="total_po">{{ $currency(material_total) }}</td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                </tfoot>
+                                                                            </table>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </tab-content>
+                                                </form-wizard>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

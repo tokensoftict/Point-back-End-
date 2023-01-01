@@ -1,0 +1,147 @@
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="doc-container">
+        <div class="row">
+            <div class="col-xl-9">
+                <div class="invoice-content">
+                    <div class="invoice-detail-body">
+                        <div class="invoice-detail-title">
+                            <div class="invoice-logo">
+                                <div class="upload pe-md-4">
+                                    <h4>New Purchase</h4>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="invoice-detail-items">
+
+                            <div class="row justify-content-between">
+                                <div class="col-sm-12">
+                                    <!--
+                                    <Autocomplete
+                                        ref="autocomplete"
+                                        placeholder="Search For Product"
+                                        class="form-control"
+                                        :results="results"
+                                        @input="getItems"
+                                        :debounce="500"
+                                        :display-item="showItem"
+                                        :use-html-for-results ="true"
+                                        @onSelect="ItemSelected"
+                                    ></Autocomplete>
+                                    -->
+
+                                    <v-select label="name" v-model="selected" :loading="loaderState" :placeholder="'Search for Material'"  :filterable="false" @input="ItemSelected" :options="results" @search="getItems"
+                                         >
+                                        <template #no-options>
+                                           Search for Material
+                                        </template>
+                                    </v-select>
+                                </div>
+                            </div>
+                            <div class="row mt-3  justify-content-between">
+                                <div class="col-sm-3">
+                                    <label>Cost Price</label>
+                                    <app-textbox :validate="true" ref="cost_price" type="number" design="sm" ></app-textbox>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label style="white-space: nowrap;">Quantity</label>
+                                    <app-textbox :validate="true" ref="quantity"  type="number" design="sm" ></app-textbox>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label style="white-space: nowrap;">Expiry Date</label>
+                                    <flat-pickr v-model="expiry_date" class="form-control form-control-sm flatpickr active" placeholder="Expiry Date"></flat-pickr>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <br/>
+                                    <app-button style="margin-top:10px" :click="addItem"  class="float-end"  design="primary">Add Stock</app-button>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="invoice-detail-items">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-start">Material Name</th>
+                                        <th class="text-center">Expiry Date</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-center">Cost Price</th>
+                                        <th class="text-center">Total</th>
+                                        <th class="text-end">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(purchaseItem, index) in purchaseItems">
+                                            <td class="text-left">{{ (purchaseItem.name) }}</td>
+                                            <td class="text-center">{{ (purchaseItem.expiry_date) }}</td>
+                                            <td class="text-center">{{ (purchaseItem.quantity) }}</td>
+                                            <td class="text-center">{{ $currency(purchaseItem.cost_price) }}</td>
+                                            <td class="text-center">{{ $currency((purchaseItem.cost_price * purchaseItem.quantity))  }}</td>
+                                            <td class="text-right">
+                                                <button @click="removeItem(index)" class="btn btn-sm btn-danger float-end">Remove</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-end">Total</td>
+                                        <td class="text-end" id="total_po">{{ $currency(purchase_total) }}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="invoice-actions">
+                    <div class="invoice-action-currency pe-4 ps-4">
+                        <div class="form-group">
+                            <label for="currency">Supplier</label>
+                            <app-select ref="supplier_id" design="sm" :items="suppliers" key="supplier_id" :validate="true" error-msg="Select Supplier"  name="supplier_id"  model="supplier_id" placeholder="Select Supplier"></app-select>
+                        </div>
+                    </div>
+                    <div class="invoice-action-currency pe-4 ps-4">
+                        <div class="form-group">
+                            <label for="currency">Purchase Date</label>
+                            <flat-pickr v-model="purchase_date" class="form-control form-control-sm flatpickr active" placeholder="Due Date"></flat-pickr>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="invoice-actions-btn">
+                    <div class="invoice-action-btn">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-4">
+                                <app-button design="primary" :click="completePurchase" ref="complete_purchase" class="btn-send" style="width: 100%;margin-bottom: 20px">Complete Purchase</app-button>
+                            </div>
+                            <div class="col-xl-12 col-md-4">
+                                <app-button design="dark" :click="draftPurchase" ref="draft_purchase" class="btn-preview" style="width: 100%;margin-bottom: 20px">Draft Purchase</app-button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

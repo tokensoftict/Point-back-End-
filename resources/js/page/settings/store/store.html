@@ -1,0 +1,65 @@
+<div v-scroll-spy class="row">
+    <div id="card_1" class="col-lg-6 layout-spacing layout-top-spacing">
+        <div class="statbox panel box box-shadow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Store Settings</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label>Store Name</label>
+                            <app-textbox ref="name" :validate="true"  :design="'sm'" key="name" :name="'name'"  :errorMsg="'Please input your store name'"  :type="'text'"  :model="'name'" :placeholder="'Store Name'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Branch Name</label>
+                            <app-textbox ref="branch_name"  :validate="true" :design="'sm'" key="branch_name" :name="'branch_name'"  :errorMsg="'Please input your Branch name'"  :type="'text'"  :model="'branch_name'" :placeholder="'Branch Name'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>VAT</label>
+                            <app-textbox ref="vat" :design="'sm'" key="vat"  :name="'vat'"  :type="'number'"  :model="'vat'" :placeholder="'VAT'"></app-textbox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Store Address Line</label>
+                            <app-textarea ref="address_1"  :validate="true" :error-msg="'Please enter your store address'" :design="'sm'" key="address_1" :name="'address_1'"  :type="'text'"  :model="'address_1'" :placeholder="'Store Address Line'"></app-textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Store Address Line 2</label>
+                            <app-textarea ref="address_2"   :design="'sm'" key="address_2" :name="'address_2'"  :type="'text'"  :model="'address_2'" :placeholder="'Store Address Line 2'"></app-textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Store Contact Number</label>
+                            <app-textarea ref="contact_number"   :validate="true" :design="'sm'" key="contact_number" :name="'contact_number'" :errorMsg="'Please input your Store Contact Number'"  :type="'text'"  :model="'contact_number'" :placeholder="'Store Contact Numbers'"></app-textarea>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Store Logo</label>
+                            <app-file ref="logo" :design="'sm'"    key="logo" :name="'logo'"  :type="'text'"  :model="'logo'" :placeholder="'Logo'"></app-file>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Footer Receipt Notes</label>
+                            <app-textarea ref="receipt_notes"  :design="'sm'" key="receipt_notes" :name="'receipt_notes'"  :type="'text'"  :model="'receipt_notes'" :placeholder="'Footer Receipt Notes'"></app-textarea>
+                        </div>
+
+
+                        <div class="field-wrapper">
+                            <app-button ref="submit_button"  :click="save">Save Changes</app-button>
+                        </div>
+
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

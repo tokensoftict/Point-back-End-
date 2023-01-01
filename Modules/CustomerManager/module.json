@@ -1,0 +1,11 @@
+{
+    "name": "CustomerManager",
+    "alias": "customermanager",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CustomerManager\\Providers\\CustomerManagerServiceProvider"
+    ],
+    "files": []
+}

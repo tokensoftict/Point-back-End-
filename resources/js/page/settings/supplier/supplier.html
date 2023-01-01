@@ -1,0 +1,140 @@
+
+<teleport to="body">
+    <div class="modal fade" id="editSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Supplier</h5>
+                    <button type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" class="btn-close"></button>
+                </div>
+                <div class="modal-body">
+                    <form ref="updateform">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <app-textbox  ref="update_name" :design="'sm'" key="update_name" :validate="true" :error-msg="'Enter supplier name'"  :name="'update_name'"  :type="'text'"  :model="'update_name'" :placeholder="'Name'"></app-textbox>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <app-textbox  ref="update_email" :design="'sm'" key="update_email"  :error-msg="'Enter Email Address'"  :name="'update_email'"  :type="'text'" :placeholder="'Email Address'"  :model="'update_email'"></app-textbox>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <app-textbox  ref="update_phonenumber" :design="'sm'" key="update_phonenumber"  :error-msg="'Enter Phone Number'"  :name="'update_phonenumber'"  :placeholder="'Phone Number'" :type="'text'"  :model="'update_phonenumber'"></app-textbox>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <app-textarea ref="update_address"   :error-msg="'Please enter your Supplier address'" :design="'sm'" key="update_address" :name="'update_address'"  :type="'text'"  :model="'update_address'" :placeholder="'Supplier address'"></app-textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <app-button ref="update_button"  :click="updateSupplier">Save Changes</app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</teleport>
+
+<teleport to="body">
+    <div class="modal fade" id="newSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Supplier</h5>
+                    <button type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" class="btn-close"></button>
+                </div>
+                <div class="modal-body">
+                    <form ref="newform">
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <app-textbox  ref="name" :design="'sm'" key="name" :validate="true" :error-msg="'Enter supplier name'"  :name="'name'"  :type="'text'"   :model="'name'" :placeholder="'Name'"></app-textbox>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <app-textbox  ref="email" :design="'sm'" key="email"  :error-msg="'Enter supplier name'"  :name="'email'"  :type="'text'" :placeholder="'Email Address'"  :model="'email'"></app-textbox>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <app-textbox  ref="phonenumber" :design="'sm'" key="phonenumber"  :error-msg="'Enter Phone Number'"  :name="'phonenumber'"  :type="'text'"  :placeholder="'Phone Number'" :model="'phonenumber'"></app-textbox>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <app-textarea ref="address"   :error-msg="'Please enter your Supplier address'" :design="'sm'" key="address" :name="'address'"  :type="'text'"  :model="'address'" :placeholder="'Supplier address'"></app-textarea>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <app-button ref="submit_button"  :click="save">Save</app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</teleport>
+
+<div class="row layout-top-spacing">
+    <div class="col-12 layout-spacing">
+        <div class="panel br-6 statbox box box-shadow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Supplier List</h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="custom-table panel-body p-0">
+                    <v-client-table :data="tableData" ref="supplier_table" :columns="columns" :options="options">
+                        <template #beforeFilter>
+                            <button class="btn me-2 btn-primary" @click="newModal.show()"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="feather feather-plus"
+                            >
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                               New Supplier
+                            </button>
+
+                        </template>
+                        <template #status="props">
+                            <span v-if="props.row.status === true"  class="badge inv-status badge-success">Active</span>
+                            <span v-if="props.row.status === false"  class="badge inv-status badge-warning">Inactive</span>
+                        </template>
+                        <template #action="props">
+                            <a href="javascript:;"  class=" btn btn-sm btn-primary" @click="edit(props.row)">
+                                <i class="far fa-1x fa-edit"></i>
+                            </a>
+
+                            &nbsp; &nbsp;
+
+                            <a href="javascript:;" class=" btn btn-sm btn-danger" @click="delete_row(props.row.id)">
+                                <i class="far fa-1x fa-trash-alt"></i>
+                            </a>
+
+                            &nbsp; &nbsp;
+
+                            <a href="javascript:;" class=" text-white btn btn-sm btn-dark" @click="toggle(props.row.id)">
+                                <i class="far fa-1x fa-hourglass"></i>
+                            </a>
+
+                        </template>
+                    </v-client-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

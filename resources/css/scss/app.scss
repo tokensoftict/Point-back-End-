@@ -1,0 +1,78 @@
+/*main pluging css*/
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import '../sass/forms/theme-checkbox-radio.scss';
+@import '../sass/perfect-scrollbar.css';
+@import '../sass/main.scss';
+@import '../sass/structure.scss';
+@import '../sass/elements/alert.scss';
+@import '../sass/forms/switches.scss';
+@import '../sass/custom-loader.css';
+@import '../sass/animate.css';
+
+@import "../sass/apps/invoice-add.scss";
+@import "../sass/apps/calendar.scss";
+@import "../sass/apps/chat.scss";
+@import "../sass/apps/contacts.scss";
+@import "../sass/apps/invoice-edit.scss";
+@import "../sass/apps/invoice-list.scss";
+@import "../sass/apps/invoice-preview.scss";
+@import "../sass/apps/mailbox.scss";
+@import "../sass/apps/notes.scss";
+@import "../sass/apps/scrumboard.scss";
+@import "../sass/apps/todolist.scss";
+
+@import '../sass/components/cards/card.scss';
+@import '../sass/components/tabs-accordian/custom-accordions.scss';
+@import '../sass/components/tabs-accordian/custom-tabs.scss';
+@import '../sass/components/timeline/custom-timeline.scss';
+@import '../sass/components/custom-carousel.scss';
+@import '../sass/components/custom-countdown.scss';
+@import '../sass/components/custom-counter.scss';
+
+@import '../sass/components/custom-lightbox.scss';
+@import '../sass/components/custom-list-group.scss';
+@import '../sass/components/custom-media_object.scss';
+@import '../sass/components/custom-modal.scss';
+@import '../sass/components/custom-sweetalert.scss';
+@import '../sass/drag-drop/drag-drop.css';
+
+
+@import '../sass/elements/infobox.scss';
+@import '../sass/elements/alert.scss';
+@import '../sass/elements/avatar.scss';
+@import '../sass/elements/breadcrumb.scss';
+@import '../sass/elements/color_library.css';
+@import '../sass/elements/custom-tree_view.scss';
+
+
+@import '../sass/elements/custom-typography.css';
+@import '../sass/elements/popover.scss';
+@import '../sass/elements/search.scss';
+@import '../sass/elements/tooltip.scss';
+
+@import '../sass/font-icons/fontawesome/css/regular.css';
+@import '../sass/font-icons/fontawesome/css/fontawesome.css';
+@import '../sass/forms/bootstrap-slider.css';
+@import '../sass/forms/custom-clipboard.scss';
+@import '../sass/forms/custom-flatpickr.css';
+@import '../sass/forms/custom-nouiSlider.css';
+@import '../sass/forms/switches.scss';
+@import '../sass/forms/file-upload-with-preview.min.css';
+@import '../sass/forms/theme-checkbox-radio.scss';
+
+
+@import '../sass/tables/table-basic.scss';
+@import '../sass/users/account-setting.scss';
+
+@import '../sass/users/user-profile.scss';
+@import '../sass/widgets/widgets.scss';
+@import '../sass/custom-loader.css';
+
+
+@import '../sass/tables/table-custom.scss';
+
+/*dark css*/
+@import '../sass/dark.scss';
+
+/*custom css*/
+@import '../sass/style.scss';

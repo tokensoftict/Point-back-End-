@@ -1,0 +1,342 @@
+<div class="sidebar-wrapper sidebar-theme">
+    <nav ref="menu" id="sidebar">
+        <div class="shadow-bottom"></div>
+        <perfect-scrollbar class="list-unstyled menu-categories" tag="ul" :options="{ wheelSpeed: 0.5, swipeEasing: !0, minScrollbarLength: 40, maxScrollbarLength: 300, suppressScrollX: true }">
+            <li class="menu">
+                <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#dashboard" aria-controls="dashboard" aria-expanded="false">
+                    <div class="">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-home"
+                        >
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <span>Dashboard</span>
+                    </div>
+                    <div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-chevron-right"
+                        >
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul id="dashboard" class="collapse submenu list-unstyled" data-bs-parent="#sidebar">
+                    <li>
+                        <router-link to="/dashboard">
+                            Dashboard
+                        </router-link>
+                    </li>
+                </ul>
+
+            </li>
+            <li class="menu">
+                <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#stocks" aria-controls="datatables" aria-expanded="false">
+                    <div class="">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-layers"
+                        >
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        <span>Stock Manager</span>
+                    </div>
+                    <div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-chevron-right"
+                        >
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+
+                <ul id="stocks" class="collapse submenu list-unstyled" data-bs-parent="#sidebar">
+
+                    <li>
+                        <router-link to="/stock/new">New Stock</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/stock/list">List Stock</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/stock/available">Available Stock</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/stock/disabled">Disabled Stock</router-link>
+                    </li>
+                </ul>
+
+            </li>
+            <li class="menu">
+                <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#customer" aria-controls="customer" aria-expanded="false">
+                    <div class="">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-layers"
+                        >
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        <span>Customers</span>
+                    </div>
+                    <div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-chevron-right"
+                        >
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+
+                <ul id="customer" class="collapse submenu list-unstyled" data-bs-parent="#sidebar">
+
+                    <li>
+                        <router-link to="/customerManager/customers">Customer Manager</router-link>
+                    </li>
+                    `
+
+
+                </ul>
+
+            </li>
+            <li class="menu">
+                <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#datatables" aria-controls="datatables" aria-expanded="false">
+                    <div class="">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-layers"
+                        >
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        <span>Bakery Manager</span>
+                    </div>
+                    <div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-chevron-right"
+                        >
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+
+                <ul id="datatables" class="collapse submenu list-unstyled" data-bs-parent="#sidebar">
+
+                    <li>
+                        <router-link to="/bakeryManager/rawmaterials">Material Manager</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/bakeryManager/rawmaterials/availability">Available Material</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/bakeryManager/purchase/add">New Purchases</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/bakeryManager/purchase/list">Today's Purchases</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/bakeryManager/transfer">Transfers</router-link>
+                    </li>
+
+                </ul>
+
+            </li>
+            <li class="menu">
+                <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#production" aria-controls="production" aria-expanded="false">
+                    <div class="">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-layers"
+                        >
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        <span>Production</span>
+                    </div>
+                    <div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-chevron-right"
+                        >
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+
+                <ul id="production" class="collapse submenu list-unstyled" data-bs-parent="#sidebar">
+
+                    <li>
+                        <router-link to="/bakeryManager/production/new">New Production</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/bakeryManager/productions/list">Today's Production</router-link>
+                    </li>
+                </ul>
+
+            </li>
+            <li class="menu">
+                <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#apps" aria-controls="apps" aria-expanded="false">
+                    <div class="">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-cpu"
+                        >
+                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                            <rect x="9" y="9" width="6" height="6"></rect>
+                            <line x1="9" y1="1" x2="9" y2="4"></line>
+                            <line x1="15" y1="1" x2="15" y2="4"></line>
+                            <line x1="9" y1="20" x2="9" y2="23"></line>
+                            <line x1="15" y1="20" x2="15" y2="23"></line>
+                            <line x1="20" y1="9" x2="23" y2="9"></line>
+                            <line x1="20" y1="14" x2="23" y2="14"></line>
+                            <line x1="1" y1="9" x2="4" y2="9"></line>
+                            <line x1="1" y1="14" x2="4" y2="14"></line>
+                        </svg>
+                        <span>Settings</span>
+                    </div>
+                    <div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-chevron-right"
+                        >
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul id="apps" class="collapse submenu list-unstyled" data-bs-parent="#sidebar">
+                    <li>
+                        <router-link to="/settings/store">System Settings</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/settings/users">System Users</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/settings/manufacturer">Manufacturer</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/settings/productcategory">Category</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/settings/expensestype">Expenses Type</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/settings/payment_method">Payment Method</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/settings/suppliers">Suppliers</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/settings/banks">Banks</router-link>
+                    </li>
+                </ul>
+
+            </li>
+        </perfect-scrollbar>
+    </nav>
+</div>
