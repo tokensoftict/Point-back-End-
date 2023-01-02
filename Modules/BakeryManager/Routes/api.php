@@ -47,8 +47,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
                 Route::get('', ['as' => 'index', 'uses' => 'MaterialTransferController@index', 'visible' => true]);
                 Route::get('list', ['as' => 'list', 'uses' => 'MaterialTransferController@listAll']);
                 Route::get('{bakeryproduction}/show', ['as' => 'show', 'uses' => 'MaterialTransferController@show']);
-                Route::get('{bakeryproduction}/accept', ['as' => 'destroy', 'uses' => 'MaterialTransferController@accept']);
-                Route::get('{bakeryproduction}/decline', ['as' => 'destroy', 'uses' => 'MaterialTransferController@decline']);
+                Route::get('{bakeryproduction}/accept', ['as' => 'accept', 'uses' => 'MaterialTransferController@accept']);
+                Route::get('{bakeryproduction}/decline', ['as' => 'decline', 'uses' => 'MaterialTransferController@decline']);
             });
 
         });
