@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained();
             $table->unsignedBigInteger("completed_id")->nullable();
             $table->timestamps();
-            $table->foreign("completed_by")->references("users")->on("id")->nullOnDelete();
+            //$table->foreign("completed_by")->references("users")->on("id")->nullOnDelete();
         });
     }
 
