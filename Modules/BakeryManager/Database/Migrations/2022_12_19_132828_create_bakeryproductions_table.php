@@ -21,7 +21,9 @@ return new class extends Migration
             $table->foreignId("status_id")->constrained();
             $table->text("remark")->nullable();
             $table->foreignId("user_id")->constrained();
+            $table->unsignedBigInteger("completed_id")->nullable();
             $table->timestamps();
+            $table->foreign("completed_by")->references("users")->on("id")->nullOnDelete();
         });
     }
 

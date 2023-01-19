@@ -11,6 +11,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Modules\Settings\Http\Requests\StoreSettingsRequest;
+use Modules\Settings\Transformers\SettingsResources;
 
 
 class StoreSettings extends Controller
@@ -24,7 +25,7 @@ class StoreSettings extends Controller
 
         if (!$store) $store = [];
 
-        return $this->success("Data fetched", $store);
+        return $this->success("Data fetched", new SettingsResources(collect(app()->make(Settings::class)->all())));
     }
 
 

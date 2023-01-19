@@ -22,7 +22,9 @@ class CustomerController extends Controller
     }
 
 
-    public function create(){
+    public function find(){
+
+        return $this->success("Data fetched", CustomerManagerResource::collection(Customer::query()->filter(\request()->get("search"))->get()));
 
     }
 

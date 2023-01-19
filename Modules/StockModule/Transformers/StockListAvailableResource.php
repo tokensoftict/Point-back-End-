@@ -39,7 +39,7 @@ class StockListAvailableResource extends JsonResource
         Arr::set($data,"status",$this->status);
         Arr::set($data,"selling_price",number_format($this->selling_price,2));
         Arr::set($data,"cost_price",number_format($this->cost_price,2));
-        Arr::set($data,"last_updated",$this->name);
+        Arr::set($data,"last_updated",$this->last_updated->name);
         Arr::set($data,"action",[
             "Edit" => $this->id."/edit",
             "Toggle Stock" => $this->id."/toggle",

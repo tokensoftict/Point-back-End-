@@ -15,7 +15,7 @@ class BakeryProductionMaterialItemResource extends JsonResource
     public function toArray($request)
     {
         $data =  parent::toArray($request);
-
+        \Arr::set($data,"id",$this->rawmaterial_id);
         \Arr::set($data,"name",$this->rawmaterial->name);
         \Arr::set($data,"rawmaterial",new MaterialFilterResource($this->rawmaterial));
         \Arr::set($data,"status",["label"=>$this->status->label,"name"=>$this->status->name]);

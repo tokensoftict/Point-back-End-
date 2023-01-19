@@ -28,7 +28,7 @@ use Modules\BakeryManager\Http\Requests\ProductionRequest;
  *
  * @property Status $status
  * @property User $user
- *
+ * @property User $completed
  * @package App\Models
  */
 class Bakeryproduction extends Model
@@ -37,7 +37,8 @@ class Bakeryproduction extends Model
 
 	protected $casts = [
 		'status_id' => 'int',
-		'user_id' => 'int'
+		'user_id' => 'int',
+        'completed_id' => 'int'
 	];
 
 	protected $dates = [
@@ -51,7 +52,8 @@ class Bakeryproduction extends Model
 		'production_time',
 		'status_id',
 		'remark',
-		'user_id'
+		'user_id',
+        'completed_id'
 	];
 
     public static $fields = [
@@ -60,7 +62,7 @@ class Bakeryproduction extends Model
         'production_time',
         'status_id',
         'remark',
-        'user_id'
+        'user_id',
     ];
 
     public static $updateFields = [
@@ -71,6 +73,7 @@ class Bakeryproduction extends Model
         'status_id'
     ];
 
+    protected $with = ['status'];
 
     protected $appends = ["total_material","total_product","profit"];
 
@@ -100,6 +103,11 @@ class Bakeryproduction extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function completed()
+    {
+        return $this->belongsTo(User::class,"completed_id");
+    }
+
     public function bakery_production_material_items()
     {
         return $this->hasMany(BakeryProductionMaterialItem::class);
@@ -108,6 +116,44 @@ class Bakeryproduction extends Model
     public function bakery_production_products_items()
     {
         return $this->hasMany(BakeryProductionProductsItem::class);
+    }
+
+
+    public function complete()
+    {
+        $status = Status::where("name","Complete")->first()->id;
+
+        if($this->status === $status)
+        {
+            return $this;
+        }
+
+        $products = json_decode(request()->get("products"),true);
+
+        if(!$products) return $this;
+
+        \DB::transaction(function () use(&$products,&$status){
+
+            foreach ($products as $product)
+            {
+                $p = $this->bakery_production_products_items()->with(['stock'])->where("id",$product['product_item_id'])->first();
+
+                $p->quantity = $product['quantity'];
+                $p->total = $product['quantity'] * $p->selling_price;
+
+                $p->update();
+
+                $p->stock->quantity +=  $p->quantity;
+
+                $p->stock->save();
+            }
+
+            $this->status_id = $status;
+
+            $this->save();
+
+        });
+
     }
 
 
@@ -161,12 +207,10 @@ class Bakeryproduction extends Model
                     [
                         "stock_id" => $product['id'],
                         "status_id" =>  Status::where("name","Pending")->first()->id,
-                        "quantity" => $product['quantity'],
+                        "estimate_quantity" => $product['estimate_quantity'],
                         "selling_price" =>  $product['selling_price'],
-                        "total" => $product['quantity'] * $product['selling_price'],
+                        "estimate_total" => $product['estimate_quantity'] * $product['selling_price'],
                         "production_date" => $request->get("production_date"),
-                        "recycle" => 0,
-                        "roughs" => 0
                     ]
                 );
             }

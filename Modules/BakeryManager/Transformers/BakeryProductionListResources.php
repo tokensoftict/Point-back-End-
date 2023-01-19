@@ -25,6 +25,7 @@ class BakeryProductionListResources extends JsonResource
         "total_product",
         "profit",
         "created_by",
+        "completed_by",
         "Action"
     ];
 
@@ -40,6 +41,7 @@ class BakeryProductionListResources extends JsonResource
         \Arr::set($data,"total_product",$this->total_product);
         \Arr::set($data,"profit",$this->profit);
         \Arr::set($data,"created_by",new AuthCollection($this->user));
+        \Arr::set($data,"completed_by",new AuthCollection($this->completed));
         \Arr::set($data,"product_count",$this->bakery_production_products_items->count());
         \Arr::set($data,"material_count",$this->bakery_production_products_items->count());
         $action = [];
@@ -50,9 +52,8 @@ class BakeryProductionListResources extends JsonResource
         {
             Arr::set($action,"Edit", $this->id."/edit");
             Arr::set($action,"Complete", $this->id."/complete");
+            Arr::set($action,"Delete Production",$this->id."/remove");
         }
-
-        Arr::set($action,"Delete Production",$this->id."/remove");
 
         Arr::set($data,"action",$action);
 

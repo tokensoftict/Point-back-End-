@@ -26,7 +26,7 @@ class StockController extends Controller
 
     public function available() : JsonResponse
     {
-        return $this->success("Data fetched",['columns'=>StockListAvailableResource::$coloumns,StockListAvailableResource::collection(Stock::query()->quickWith()->available()->get())]);
+        return $this->success("Data fetched",['columns'=>StockListAvailableResource::$coloumns,"data"=>StockListAvailableResource::collection(Stock::query()->quickWith()->available()->get())]);
     }
 
 

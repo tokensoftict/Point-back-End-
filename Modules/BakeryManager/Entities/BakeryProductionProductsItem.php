@@ -20,11 +20,11 @@ use Modules\StockModule\Entities\Stock;
  * @property int $status_id
  * @property Carbon $production_date
  * @property Carbon|null $production_time
+ * @property float $extimate_quantity
+ * @property float $extimate_total
  * @property float $quantity
- * @property float $selling_price
  * @property float $total
- * @property float $recycle
- * @property float $roughs
+ * @property float $selling_price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -42,11 +42,11 @@ class BakeryProductionProductsItem extends Model
         'stock_id' => 'int',
         'bakeryproduction_id' => 'int',
         'status_id' => 'int',
-        'quantity' => 'float',
+        'estimate_quantity' => 'float',
         'selling_price' => 'float',
+        'estimate_total' => 'float',
         'total' => 'float',
-        'recycle' => 'float',
-        'roughs' => 'float'
+        'quantity' => 'float'
     ];
 
     protected $dates = [
@@ -60,11 +60,11 @@ class BakeryProductionProductsItem extends Model
         'status_id',
         'production_date',
         'production_time',
-        'quantity',
+        'estimate_quantity',
         'selling_price',
+        'estimate_total',
         'total',
-        'recycle',
-        'roughs'
+        'quantity',
     ];
 
 

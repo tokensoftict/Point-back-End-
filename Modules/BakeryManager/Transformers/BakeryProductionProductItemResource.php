@@ -16,6 +16,8 @@ class BakeryProductionProductItemResource extends JsonResource
     public function toArray($request)
     {
         $data =  parent::toArray($request);
+        \Arr::set($data,"id",  $this->stock_id);
+        \Arr::set($data,"product_item_id",  $this->id);
         \Arr::set($data,"name",  $this->stock->name);
         \Arr::set($data,"stock", new StockListResource($this->stock));
         \Arr::set($data,"production_date", eng_str_date($this->production_date));

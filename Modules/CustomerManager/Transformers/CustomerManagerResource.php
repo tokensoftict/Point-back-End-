@@ -14,6 +14,10 @@ class CustomerManagerResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $data =  parent::toArray($request);
+
+        \Arr::set($data,"name",$this->firstname." ".$this->lastname);
+
+        return $data;
     }
 }

@@ -11,5 +11,6 @@
     "CustomerManager": true,
     "PaymentManager": true,
     "PurchaseOrders": true,
-    "StockModule": true
+    "StockModule": true,
+    "InvoiceManager": true
 }

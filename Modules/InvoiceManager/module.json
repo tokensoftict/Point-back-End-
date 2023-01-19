@@ -1,0 +1,11 @@
+{
+    "name": "InvoiceManager",
+    "alias": "invoicemanager",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\InvoiceManager\\Providers\\InvoiceManagerServiceProvider"
+    ],
+    "files": []
+}

@@ -99,6 +99,12 @@ class Customer extends Model
         'lastname'=>'required',
         'phone_number' => 'required'
     ];
+
+    public function getFullnameAttribute()
+    {
+        return $this->firstname." ".$this->lastname;
+    }
+
 /*
     public function getCreditBalanceAttribute()
     {
@@ -159,4 +165,22 @@ class Customer extends Model
     {
         return $this->hasMany(CustomerDepositsHistory::class);
     }*/
+
+
+    public function scopefilter($query,$string)
+    {
+        $string =  explode(' ', $string);
+
+        return $query->where(function($q) use ($string){
+            $q->where(function($sub) use (&$string){
+                foreach ($string as $char) {
+                    $sub->orwhere('firstname', 'LIKE', "%{$char}%");
+                    $sub->orwhere('lastname', 'LIKE', "%{$char}%");
+                    $sub->orwhere('company_name', 'LIKE', "%{$char}%");
+                    $sub->orwhere('phone_number', 'LIKE', "%{$char}%");
+                }
+            });
+        });
+    }
+
 }

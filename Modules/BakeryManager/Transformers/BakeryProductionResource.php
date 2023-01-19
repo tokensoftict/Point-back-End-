@@ -25,7 +25,8 @@ class BakeryProductionResource extends JsonResource
         \Arr::set($data,"total_material",$this->total_material);
         \Arr::set($data,"total_product",$this->total_product);
         \Arr::set($data,"profit",$this->profit);
-        \Arr::set($data,"user",new AuthCollection($this->user));
+        \Arr::set($data,"created_by",new AuthCollection($this->user));
+        \Arr::set($data,"completed_by",new AuthCollection($this->completed));
         \Arr::set($data,"bakery_production_products_items",BakeryProductionProductItemResource::collection($this->bakery_production_products_items));
         \Arr::set($data,"bakery_production_material_items",BakeryProductionMaterialItemResource::collection($this->bakery_production_material_items));
 

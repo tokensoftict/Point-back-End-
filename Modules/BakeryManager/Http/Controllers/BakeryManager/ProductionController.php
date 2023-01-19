@@ -50,4 +50,13 @@ class ProductionController extends Controller
 
         return $this->success("Data fetched", []);
     }
+
+
+    public function complete(Bakeryproduction $bakeryproduction)
+    {
+        $bakeryproduction->complete();
+
+        return $this->success("Data fetched", new BakeryProductionResource($bakeryproduction));
+    }
+
 }

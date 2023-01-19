@@ -54,6 +54,7 @@ use Modules\StockModule\Http\Requests\StockRequest;
  * @property Category|null $category
  * @property Classification|null $classification
  * @property User|null $user
+ * @property User|null $last_updated
  * @property Manufacturer|null $manufacturer
  * @property Productgroup|null $productgroup
  * @property Collection|Stockbatch[] $stockbatches
@@ -121,6 +122,11 @@ class Stock extends Model
     public function classification()
     {
         return $this->belongsTo(Classification::class);
+    }
+
+    public function last_updated()
+    {
+        return $this->belongsTo(User::class,"last_updated_by");
     }
 
     public function user()

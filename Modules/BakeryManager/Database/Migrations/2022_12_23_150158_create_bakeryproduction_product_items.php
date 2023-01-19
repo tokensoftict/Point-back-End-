@@ -20,12 +20,11 @@ return new class extends Migration
             $table->foreignId("status_id")->constrained();
             $table->date("production_date");
             $table->time("production_time")->nullable();
-            $table->decimal("quantity")->default(0.0);
+            $table->decimal("estimate_quantity")->default(0.0);
             $table->decimal("selling_price")->default(0.0);
+            $table->decimal("estimate_total")->default(0.0);
+            $table->decimal("quantity")->default(0.0);
             $table->decimal("total")->default(0.0);
-            $table->decimal("recycle")->default(0.0);
-            $table->decimal("roughs")->default(0.0);
-
             $table->timestamps();
         });
     }

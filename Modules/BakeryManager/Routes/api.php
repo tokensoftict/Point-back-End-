@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
                 Route::post('', ['as' => 'store', 'uses' => 'ProductionController@store']);
                 Route::get('{bakeryproduction}/show', ['as' => 'show', 'uses' => 'ProductionController@show']);
                 Route::put('{bakeryproduction}/update', ['as' => 'update', 'uses' => 'ProductionController@update']);
+                Route::put('{bakeryproduction}/complete', ['as' => 'complete', 'uses' => 'ProductionController@complete']);
                 Route::delete('{bakeryproduction}', ['as' => 'destroy', 'uses' => 'ProductionController@destroy']);
             });
 

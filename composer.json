@@ -35,7 +35,8 @@
             "Modules\\CustomerManager\\": "Modules/CustomerManager/",
             "Modules\\PaymentManager\\": "Modules/PaymentManager/",
             "Modules\\PurchaseOrders\\": "Modules/PurchaseOrders/",
-            "Modules\\StockModule\\": "Modules/StockModule/"
+            "Modules\\StockModule\\": "Modules/StockModule/",
+            "Modules\\InvoiceManager\\": "Modules/InvoiceManager/"
         }
     },
     "autoload-dev": {

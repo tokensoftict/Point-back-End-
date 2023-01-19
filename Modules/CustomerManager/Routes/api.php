@@ -18,7 +18,7 @@ Route::prefix('customerManager')->namespace('CustomerManager')->group(function (
     Route::prefix('customer')->as('customer.')->group(function () {
         Route::get('', ['as' => 'index', 'uses' => 'CustomerController@index', 'visible' => true]);
         Route::get('list', ['as' => 'list', 'uses' => 'CustomerController@list_all']);
-        Route::get('create', ['as' => 'create', 'uses' => 'CustomerController@create', 'visible' => true]);
+        Route::post('find', ['as' => 'find', 'uses' => 'CustomerController@find', 'visible' => true]);
         Route::post('', ['as' => 'store', 'uses' => 'CustomerController@store']);
         Route::get('{customer}/show', ['as' => 'show', 'uses' => 'CustomerController@show']);
         Route::get('{customer}/edit', ['as' => 'edit', 'uses' => 'CustomerController@edit']);
