@@ -24,7 +24,7 @@ class StoreSettings extends Controller
     public function show(Settings $settings): JsonResponse
     {
 
-        $store = $settings->get("store");
+        $store = $settings->all();
 
         if (!$store) $store = [];
 
