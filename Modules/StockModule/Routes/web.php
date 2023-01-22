@@ -10,7 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('stockmodule')->group(function() {
-    Route::get('/', 'StockModuleController@index');
-});

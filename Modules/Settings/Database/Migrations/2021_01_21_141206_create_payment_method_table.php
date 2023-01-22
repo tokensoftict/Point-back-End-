@@ -13,9 +13,9 @@ class CreatePaymentMethodTable extends Migration
      */
     public function up()
     {
-        Schema::create('payment_method', function (Blueprint $table) {
+        Schema::create('payment_methods', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
+            $table->id();
             $table->string("name",255)->nullable();
             $table->boolean("status")->default("1")->nullable();
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreatePaymentMethodTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_method');
+        Schema::dropIfExists('payment_methods');
     }
 }

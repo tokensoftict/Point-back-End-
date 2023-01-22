@@ -52,6 +52,14 @@ class StatusSeeder extends Seeder
                 'name'=>'Complete',
                 'label'=>'success'
             ],
+            [
+                'name'=>'Approved',
+                'label'=>'primary'
+            ],
+            [
+                'name'=>'Declined',
+                'label'=>'warning'
+            ],
         ]);
     }
 }

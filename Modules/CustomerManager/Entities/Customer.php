@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Modules\InvoiceManager\Entities\Invoice;
+use Modules\InvoiceManager\Entities\InvoiceItem;
+use Modules\InvoiceManager\Entities\InvoiceItemBatch;
+use Modules\PaymentManager\Entities\CreditPaymentLog;
+use Modules\PaymentManager\Entities\Payment;
+use Modules\PaymentManager\Entities\PaymentMethodTable;
 
 /**
  * Class Customer
@@ -92,7 +98,7 @@ class Customer extends Model
         'state',
     ];
 
-    //protected $appends = ['credit_balance','deposit_balance'];
+    protected $appends = ['credit_balance','last_payment_date'];
 
     public static $validate = [
         'firstname'=>'required',
@@ -105,11 +111,18 @@ class Customer extends Model
         return $this->firstname." ".$this->lastname;
     }
 
-/*
+    public function getLastPaymentDateAttribute()
+    {
+       $payment_date = $this->credit_payment_logs()->where('amount','>',0)->orderBy('id','DESC')->first();
+       if(isset($payment_date->payment_date))  return $payment_date;
+       return false;
+    }
+
     public function getCreditBalanceAttribute()
     {
         return $this->credit_payment_logs()->sum('amount');
     }
+/*
 
     public function getDepositBalanceAttribute()
     {
@@ -125,7 +138,7 @@ class Customer extends Model
     {
         return $this->hasMany(BookingReservation::class);
     }
-
+*/
     public function credit_payment_logs()
     {
         return $this->hasMany(CreditPaymentLog::class);
@@ -155,7 +168,7 @@ class Customer extends Model
     {
         return $this->hasMany(Payment::class);
     }
-
+/*
     public function return_logs()
     {
         return $this->hasMany(ReturnLog::class);
@@ -164,8 +177,8 @@ class Customer extends Model
     public function customerDepositsHistory()
     {
         return $this->hasMany(CustomerDepositsHistory::class);
-    }*/
-
+    }
+*/
 
     public function scopefilter($query,$string)
     {

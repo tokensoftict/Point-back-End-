@@ -13,6 +13,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/paymentmanager', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:sanctum']], function() {
+
+    Route::middleware(['permit.task'])->group(function () {
+
+        Route::prefix('PaymentManager')->namespace('PaymentManager')->group(function () {
+
+            Route::prefix('payment')->as('payment.')->group(function () {
+
+                Route::get('', ['as' => 'index', 'uses' => 'PaymentManagerController@index', 'visible' => true]);
+                Route::get('{id}/invoice', ['as' => 'invoice', 'uses' => 'PaymentManagerController@invoice', 'visible' => true]);
+                Route::get('/payment_by_method', ['as' => 'payment_by_method', 'uses' => 'PaymentManagerController@payment_by_method', 'visible' => true]);
+                Route::post('storeCreditPayment', ['as' => 'storeCreditPayment', 'uses' => 'PaymentManagerController@storeCreditPayment']);
+                Route::post('', ['as' => 'store', 'uses' => 'PaymentManagerController@store']);
+                Route::post('/custom', ['as' => 'custom', 'uses' => 'PaymentManagerController@custom']);
+                Route::put('{invoice}', ['as' => 'update', 'uses' => 'PaymentManagerController@update']);
+            });
+        });
+    });
 });

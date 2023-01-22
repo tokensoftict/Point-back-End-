@@ -22,9 +22,6 @@ class ManufacturerController extends Controller
     }
 
 
-    public function create(){
-
-    }
 
 
     public function edit(Manufacturer $manufacturer){

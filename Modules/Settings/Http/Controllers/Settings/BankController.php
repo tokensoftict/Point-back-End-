@@ -22,11 +22,6 @@ class BankController extends Controller
     }
 
 
-    public function create(){
-
-    }
-
-
     public function edit(BankAccount $bankAccount){
 
         return $this->success("Data fetched", new BankAccountResource($bankAccount));

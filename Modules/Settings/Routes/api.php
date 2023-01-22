@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
             Route::prefix('store')->as('store.')->group(function () {
                 Route::get('', ['as' => 'view', 'uses' => 'StoreSettings@show', 'visible' => true]);
                 Route::put('update', ['as' => 'update', 'uses' => 'StoreSettings@update']);
+                Route::post('syncTask', ['as' => 'syncTask', 'uses' => 'StoreSettings@syncTask']);
             });
 
 

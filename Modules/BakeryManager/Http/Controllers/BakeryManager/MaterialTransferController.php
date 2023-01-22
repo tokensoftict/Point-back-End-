@@ -14,10 +14,10 @@ class MaterialTransferController extends Controller
 {
     use RespondsWithHttpStatus;
 
-    public function index()
+    public function index(Request $request)
     {
         return $this->success("Data fetched",
-            ['columns'=>MaterialTransferResource::$colunm,"data"=> MaterialTransferResource::collection(Bakeryproduction::where("production_date",dailyDate())->get())]
+            ['columns'=>MaterialTransferResource::$colunm,"data"=> MaterialTransferResource::collection(Bakeryproduction::query()->filterdata()->get())]
         );
     }
 
@@ -28,4 +28,16 @@ class MaterialTransferController extends Controller
     }
 
 
+    public function accept(Bakeryproduction $bakeryproduction)
+    {
+        $bakeryproduction->approve();
+        return $this->success("Data fetched",new BakeryProductionResource($bakeryproduction));
+    }
+
+
+    public function decline(Bakeryproduction $bakeryproduction)
+    {
+        $bakeryproduction->decline();
+        return $this->success("Data fetched",new BakeryProductionResource($bakeryproduction));
+    }
 }

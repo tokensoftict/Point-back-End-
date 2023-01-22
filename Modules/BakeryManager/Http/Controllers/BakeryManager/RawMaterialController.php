@@ -35,9 +35,6 @@ class RawMaterialController extends Controller
     }
 
 
-    public function create(){
-
-    }
 
 
     public function edit(Rawmaterial $rawmaterial){

@@ -11,6 +11,4 @@
 |
 */
 
-Route::prefix('paymentmanager')->group(function() {
-    Route::get('/', 'PaymentManagerController@index');
-});
+

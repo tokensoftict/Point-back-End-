@@ -20,7 +20,7 @@ class PaymentMethod extends Model
 {
 
 
-	protected $table = 'payment_method';
+	protected $table = 'payment_methods';
 
 	protected $casts = [
 		'status' => 'bool'

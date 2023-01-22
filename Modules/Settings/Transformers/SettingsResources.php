@@ -16,7 +16,8 @@ class SettingsResources extends JsonResource
     {
         $data =  parent::toArray($request);
         $data['date'] = dailyDate();
-
+        $data['monthly'] = monthlyDateRange();
+        $data['weekly'] = weeklyDateRange();
         return $data;
     }
 }

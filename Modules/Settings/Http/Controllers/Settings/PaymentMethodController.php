@@ -20,11 +20,6 @@ class PaymentMethodController extends Controller
     }
 
 
-    public function create(){
-
-    }
-
-
     public function edit(PaymentMethod $paymentMethod){
 
         return $this->success("Data fetched", new PaymentMethodResource($paymentMethod));

@@ -59,4 +59,15 @@ class ProductionController extends Controller
         return $this->success("Data fetched", new BakeryProductionResource($bakeryproduction));
     }
 
+
+    public function custom()
+    {
+        return $this->success("Data fetched",
+            [
+                "columns" => BakeryProductionListResources::$colunm,
+                "data" =>  BakeryProductionListResources::collection(Bakeryproduction::query()->filterdata()->get())
+            ]
+        );
+    }
+
 }

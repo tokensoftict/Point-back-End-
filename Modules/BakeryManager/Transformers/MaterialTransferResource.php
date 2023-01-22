@@ -43,8 +43,8 @@ class MaterialTransferResource extends JsonResource
 
         if($this->status->name == "Draft")
         {
-            Arr::set($action,"Accept", $this->id."/edit");
-            Arr::set($action,"Decline", $this->id."/complete");
+            //Arr::set($action,"Accept", $this->id."/edit");
+            //Arr::set($action,"Decline", $this->id."/complete");
         }
 
         Arr::set($data,"action",$action);

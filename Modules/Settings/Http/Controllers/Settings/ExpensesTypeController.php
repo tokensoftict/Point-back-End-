@@ -22,11 +22,6 @@ class ExpensesTypeController extends Controller
     }
 
 
-    public function create(){
-
-    }
-
-
     public function edit(ExpensesType $expensesType){
 
         return $this->success("Data fetched", new ExpensesTypeResource($expensesType));

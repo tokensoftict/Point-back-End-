@@ -20,11 +20,6 @@ class CategoryController extends Controller
     }
 
 
-    public function create(){
-
-    }
-
-
     public function edit(Category $productCategory){
 
         return $this->success("Data fetched", new CategoryResource($productCategory));

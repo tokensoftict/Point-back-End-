@@ -29,6 +29,12 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
                 Route::get('{invoice}/destroy', ['as' => 'destroy', 'uses' => 'InvoiceManagerController@show']);
                 Route::put('{invoice}', ['as' => 'update', 'uses' => 'InvoiceManagerController@update']);
 
+                //invoice report start here
+                Route::post('/daily', ['as' => 'daily', 'uses' => 'InvoiceManagerController@dailyreport', 'visible' => true]);
+                Route::post('/weekly', ['as' => 'weekly', 'uses' => 'InvoiceManagerController@weeklyreport', 'visible' => true]);
+                Route::post('/monthly', ['as' => 'monthly', 'uses' => 'InvoiceManagerController@monthlyreport', 'visible' => true]);
+                Route::post('/by_user', ['as' => 'by_user', 'uses' => 'InvoiceManagerController@report', 'visible' => true]);
+                Route::post('/by_customer', ['as' => 'by_customer', 'uses' => 'InvoiceManagerController@report', 'visible' => true]);
             });
 
         });

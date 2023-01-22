@@ -87,6 +87,7 @@ class PurchaseOrder extends Model
         "Action"
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class, 'updated_by');
@@ -115,6 +116,25 @@ class PurchaseOrder extends Model
     public function purchase_order_items()
     {
         return $this->hasMany(PurchaseOrderItem::class);
+    }
+
+
+    public function scopefilterdata($query)
+    {
+        if(request()->get("filter"))
+        {
+            foreach (json_decode(request()->get("filter"),true) as $key => $value) {
+                if($key === "between")
+                {
+                    $query->whereBetween("date_created",$value );
+                }
+                else {
+                    $query->where($key, $value);
+                }
+            }
+        }
+
+        return $query;
     }
 
 

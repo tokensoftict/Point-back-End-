@@ -75,7 +75,7 @@ class Bakeryproduction extends Model
 
     protected $with = ['status'];
 
-    protected $appends = ["total_material","total_product","profit"];
+    protected $appends = ["total_material","total_product","total_estimate_total","profit"];
 
 
     public function getTotalMaterialAttribute()
@@ -88,9 +88,14 @@ class Bakeryproduction extends Model
         return $this->bakery_production_products_items()->sum("total");
     }
 
+    public function getTotalEstimateTotalAttribute()
+    {
+        return $this->bakery_production_products_items()->sum("estimate_total");
+    }
+
     public function getProfitAttribute()
     {
-        return $this->total_product -  $this->total_material;
+        return ($this->status_id == 4 ? $this->total_estimate_total : $this->total_product) -  $this->total_material;
     }
 
     public function status()
@@ -118,12 +123,49 @@ class Bakeryproduction extends Model
         return $this->hasMany(BakeryProductionProductsItem::class);
     }
 
+    public function scopefilterdata($query)
+    {
+        if(request()->get("filter"))
+        {
+            foreach (json_decode(request()->get("filter"),true) as $key => $value) {
+                if($key === "between")
+                {
+                    $query->whereBetween("production_date",$value );
+                }
+                else {
+                    $query->where($key, $value);
+                }
+            }
+        }
+
+        return $query;
+    }
+
+
+
+    public function approve()
+    {
+        foreach ($this->bakery_production_material_items()->get() as $item)
+        {
+            $item->rawmaterial->quantity =   $item->rawmaterial->quantity - $item->quantity;
+            $item->rawmaterial->update();
+        }
+
+        $this->status_id = Status::where("name","Approved")->first()->id;
+        $this->save();
+    }
+
+    public function decline()
+    {
+        $this->status_id = Status::where("name","Declined")->first()->id;
+        $this->save();
+    }
 
     public function complete()
     {
         $status = Status::where("name","Complete")->first()->id;
 
-        if($this->status === $status)
+        if($this->status_id === $status)
         {
             return $this;
         }
@@ -149,6 +191,8 @@ class Bakeryproduction extends Model
             }
 
             $this->status_id = $status;
+
+            $this->completed_id = auth()->id();
 
             $this->save();
 

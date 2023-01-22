@@ -26,7 +26,7 @@ class CreateCustomerDepositsHistoryTable extends Migration
             $table->text("description")->nullable();
             $table->timestamps();
 
-            $table->foreign('payment_method_id')->references('id')->on('payment_method')->nullOnDelete();
+            $table->foreign('payment_method_id')->references('id')->on('payment_methods')->nullOnDelete();
             $table->foreign('last_updated_by')->references('id')->on('users')->nullOnDelete();
             $table->foreign('created_by')->references('id')->on('users')->nullOnDelete();
         });

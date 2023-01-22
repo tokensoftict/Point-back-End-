@@ -15,6 +15,18 @@ class PurchaseOrderResource extends JsonResource
      * @param  \Illuminate\Http\Request
      * @return array
      */
+
+    public static $columns = [
+        "id",
+        "Supplier",
+        "Created_By",
+        "Status",
+        "Date",
+        "Total",
+        "No_of_Items",
+        "Action"
+    ];
+
     public function toArray($request)
     {
         $data = [];

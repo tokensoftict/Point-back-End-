@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text("payment_info")->nullable();
             $table->timestamps();
 
-            $table->foreign('payment_method_id')->references('id')->on('payment_method')->nullOnDelete();
+            $table->foreign('payment_method_id')->references('id')->on('payment_methods')->nullOnDelete();
         });
     }
 

@@ -34,10 +34,6 @@ class PurchaseOrderController extends Controller
     }
 
 
-    public function create(){
-
-    }
-
     public function store(PurchaseOrderRequest $request): JsonResponse{
 
         return $this->success("Purchase created successful",
@@ -58,12 +54,6 @@ class PurchaseOrderController extends Controller
     }
 
 
-
-    public function edit($id){
-
-    }
-
-
     public function update(PurchaseOrder $purchaseOrder, PurchaseOrderRequest $request)
     {
 
@@ -78,6 +68,17 @@ class PurchaseOrderController extends Controller
 
         return $this->success("Data fetched",new PurchaseOrderResource($purchaseOrder));
 
+    }
+
+
+    public function custom()
+    {
+        return $this->success("Data fetched",
+            [
+                "columns" => PurchaseOrderResource::$columns,
+                "data" =>  PurchaseOrderResource::collection(PurchaseOrder::query()->filterdata()->get())
+            ]
+        );
     }
 
 }

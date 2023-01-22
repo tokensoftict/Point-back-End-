@@ -30,9 +30,11 @@ class InvoiceListResources extends JsonResource
     {
         $data = [];
         Arr::set($data,"Invoice Number",$this->invoice_number);
+        Arr::set($data,"ID",$this->id);
         Arr::set($data,"Customer",$this->customer->fullname);
         Arr::set($data,"Status",["label"=>$this->status->label, "name"=>$this->status->name]);
         Arr::set($data,"Sub Total",number_format($this->sub_total,2));
+        Arr::set($data,"Sub Total_",$this->sub_total);
         Arr::set($data,"Date",eng_str_date($this->invoice_date));
         Arr::set($data,"Time",twelve_hour_time($this->sales_time));
         Arr::set($data,"Total Items",$this->invoice_items->count());
@@ -40,11 +42,15 @@ class InvoiceListResources extends JsonResource
 
         $action = [];
 
-        Arr::set($action,"View Invoice", $this->id."/show");
+        Arr::set($action,"View Invoice", ['type'=>'internal','permission'=>"/invoice/:id/show",'link'=>$this->id."/show"]);
+
+        Arr::set($action,"Print Invoice A4", ['type'=>'external','permission'=>"/invoice//printA4",'link'=>route("invoice.print_afour",$this->id)]);
+
+        Arr::set($action,"Print Invoice Thermal", ['type'=>'external','permission'=>"/invoice//printThermal",'link'=>route("invoice.pos_print",$this->id)]);
 
         if($this->status->name == "Draft")
         {
-            Arr::set($action,"Edit Invoice", $this->id."/edit");
+            Arr::set($action,"Edit Invoice", ['type'=>'internal','permission'=>"/invoice/:id/edit",'link'=>$this->id."/edit"]);
         }
 
         Arr::set($data,"action",$action);

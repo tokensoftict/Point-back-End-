@@ -146,6 +146,24 @@ class Invoice extends Model
         return $query->where("invoice_date",dailyDate());
     }
 
+    public function scopefilterdata($query)
+    {
+        if(request()->get("filter"))
+        {
+            foreach (json_decode(request()->get("filter"),true) as $key => $value) {
+                if($key === "between")
+                {
+                    $query->whereBetween("invoice_date",$value );
+                }
+                else {
+                    $query->where($key, $value);
+                }
+            }
+        }
+
+        return $query;
+    }
+
     public static function createInvoice($request)
     {
 
@@ -286,7 +304,9 @@ class Invoice extends Model
             $total_profit =   $total_selling_price -  $total_cost_price;
 
             //remove stock quantity from database
-
+            $stock['stock']->quantity -= $stock['prods']['selling_quantity'];
+            $stock['stock']->save();
+            //ending of removeing quantity
             $invoiceItems[$key] =  new InvoiceItem([
                 'invoice_id'=> $invoice->id,
                 'stock_id'=>$key,

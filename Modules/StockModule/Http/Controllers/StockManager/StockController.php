@@ -79,4 +79,10 @@ class StockController extends Controller
         ));
     }
 
+    public function toggle(Stock $stock)
+    {
+        $this->toggleState($stock);
+        return  $this->success("Data fetched",new StockResource($stock));
+    }
+
 }

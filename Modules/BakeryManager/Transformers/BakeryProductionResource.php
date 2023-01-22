@@ -8,6 +8,7 @@ use Modules\Auth\Transformers\AuthCollection;
 
 class BakeryProductionResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
