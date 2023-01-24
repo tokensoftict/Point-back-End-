@@ -109,4 +109,10 @@ class CustomerController extends Controller
         return $this->success("Data fetched",$data);
     }
 
+
+    public function creditors()
+    {
+       return $this->success("Data fetched",CustomerManagerResource::collection(Customer::query()->creditors()));
+    }
+
 }

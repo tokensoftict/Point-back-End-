@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->decimal("quantity")->default(0);
-            $table->decimal("cost_price")->default(0);
+            $table->decimal("cost_price",20,5)->default(0);
             $table->string("description")->nullable();
             $table->foreignId("materialtype_id")->nullable()->constrained()->cascadeOnDelete();
             $table->boolean('status')->default(1)->index()->comment('0=disabled, 1=enabled');

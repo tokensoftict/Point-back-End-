@@ -51,8 +51,12 @@ class BakeryProductionListResources extends JsonResource
         if($this->status->name == "Draft")
         {
             Arr::set($action,"Edit", $this->id."/edit");
+            //Arr::set($action,"Delete Production",$this->id."/remove");
+        }
+
+        if($this->status->name == "Approved")
+        {
             Arr::set($action,"Complete", $this->id."/complete");
-            Arr::set($action,"Delete Production",$this->id."/remove");
         }
 
         Arr::set($data,"action",$action);

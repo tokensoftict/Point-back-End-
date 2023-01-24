@@ -196,4 +196,12 @@ class Customer extends Model
         });
     }
 
+
+    public function scopecreditors($query)
+    {
+       return  $query->get()->filter(function($customer){
+           return $customer->credit_balance < 0;
+       });
+    }
+
 }

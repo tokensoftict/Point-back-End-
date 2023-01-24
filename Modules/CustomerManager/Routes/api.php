@@ -22,6 +22,7 @@ Route::prefix('customerManager')->namespace('CustomerManager')->group(function (
         Route::post('', ['as' => 'store', 'uses' => 'CustomerController@store','vue'=>'create-customer','custom_label'=>'Create Customer']);
         Route::get('{customer}/show', ['as' => 'show', 'uses' => 'CustomerController@show']);
         Route::get('{customer}/edit', ['as' => 'edit', 'uses' => 'CustomerController@edit']);
+        Route::get('creditors', ['as' => 'creditors', 'uses' => 'CustomerController@creditors']);
         Route::post('findByphone', ['as' => 'findByphone', 'uses' => 'CustomerController@findByphone']);
         Route::post('balancesheet', ['as' => 'balancesheet', 'uses' => 'CustomerController@balancesheet']);
         Route::put('{customer}', ['as' => 'update', 'uses' => 'CustomerController@update','vue'=>'edit-customer','custom_label'=>'Edit Customer']);

@@ -21,8 +21,8 @@ return new class extends Migration
             $table->date("production_date");
             $table->time("production_time")->nullable();
             $table->decimal("quantity")->default(0.0);
-            $table->decimal("cost_price")->default(0.0);
-            $table->decimal("total")->default(0.0);
+            $table->decimal("cost_price",20,5)->default(0.0);
+            $table->decimal("total",20,5)->default(0.0);
             $table->timestamps();
         });
     }

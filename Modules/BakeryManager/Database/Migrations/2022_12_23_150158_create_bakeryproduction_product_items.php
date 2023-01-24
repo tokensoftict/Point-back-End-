@@ -17,14 +17,14 @@ return new class extends Migration
             $table->id();
             $table->foreignid("stock_id")->constrained()->cascadeOnDelete();
             $table->foreignId("bakeryproduction_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("status_id")->constrained();
-            $table->date("production_date");
+            $table->foreignId("status_id")->nullable()->constrained()->nullOnDelete();
+            $table->date("production_date")->nullable();
             $table->time("production_time")->nullable();
             $table->decimal("estimate_quantity")->default(0.0);
-            $table->decimal("selling_price")->default(0.0);
-            $table->decimal("estimate_total")->default(0.0);
+            $table->decimal("selling_price",20,5)->default(0.0);
+            $table->decimal("estimate_total",20,5)->default(0.0);
             $table->decimal("quantity")->default(0.0);
-            $table->decimal("total")->default(0.0);
+            $table->decimal("total",20,5)->default(0.0);
             $table->timestamps();
         });
     }
