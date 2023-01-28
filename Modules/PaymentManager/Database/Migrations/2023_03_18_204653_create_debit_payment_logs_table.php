@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("payment_id")->nullable()->constrained()->nullOnDelete();
             $table->foreignId("user_id")->nullable()->constrained()->nullOnDelete();
-            $table->foreignId("payment_method_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("payment_method_id")->nullable()->constrained()->nullOnDelete();
             $table->foreignId("customer_id")->nullable()->constrained()->nullOnDelete();
             $table->string("invoice_number")->nullable();
             $table->foreignId("invoice_id")->nullable()->constrained()->nullOnDelete();

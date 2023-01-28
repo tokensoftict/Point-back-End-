@@ -172,7 +172,7 @@ class Payment extends Model
                 $credit_log = [
                     'payment_id' => $payment->id,
                     'user_id' => auth()->id(),
-                    'payment_method_id' => $payment_method_id->id,
+                    'payment_method_id' => NULL,
                     'customer_id' =>$invoice->customer_id,
                     'invoice_number' =>$invoice->invoice_number,
                     'invoice_id' => $invoice->id,
