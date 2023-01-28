@@ -42,7 +42,7 @@ class InvoiceListResources extends JsonResource
 
         $action = [];
 
-        Arr::set($action,"View Invoice", ['type'=>'internal','permission'=>"/invoice/:id/show",'link'=>$this->id."/show"]);
+        Arr::set($action,"View Invoice", ['type'=>'internal','permission'=>"/invoice/:id/show",'link'=>"/invoice/".$this->id."/show"]);
 
         Arr::set($action,"Print Invoice A4", ['type'=>'external','permission'=>"/invoice//printA4",'link'=>route("invoice.print_afour",$this->id)]);
 
