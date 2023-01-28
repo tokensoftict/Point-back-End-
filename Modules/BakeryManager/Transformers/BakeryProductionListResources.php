@@ -46,17 +46,17 @@ class BakeryProductionListResources extends JsonResource
         \Arr::set($data,"material_count",$this->bakery_production_products_items->count());
         $action = [];
 
-        Arr::set($action,"View Production", 'production/'.$this->id."/show");
+        Arr::set($action,"View Production", '/bakeryManager/productions/'.$this->id."/show");
 
         if($this->status->name == "Draft")
         {
-            Arr::set($action,"Edit", 'production/'.$this->id."/edit");
+            Arr::set($action,"Edit", '/bakeryManager/productions/'.$this->id."/edit");
             //Arr::set($action,"Delete Production",$this->id."/remove");
         }
 
         if($this->status->name == "Approved")
         {
-            Arr::set($action,"Complete", 'production/'.$this->id."/complete");
+            Arr::set($action,"Complete", '/bakeryManager/productions/'.$this->id."/complete");
         }
 
         Arr::set($data,"action",$action);
