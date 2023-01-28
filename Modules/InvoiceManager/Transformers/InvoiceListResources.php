@@ -50,7 +50,7 @@ class InvoiceListResources extends JsonResource
 
         if($this->status->name == "Draft")
         {
-            Arr::set($action,"Edit Invoice", ['type'=>'internal','permission'=>"/invoice/:id/edit",'link'=>$this->id."/edit"]);
+            Arr::set($action,"Edit Invoice", ['type'=>'internal','permission'=>"/invoice/:id/edit",'link'=>'/invoice/'.$this->id."/edit"]);
         }
 
         Arr::set($data,"action",$action);
