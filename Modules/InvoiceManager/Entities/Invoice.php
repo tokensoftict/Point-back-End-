@@ -189,7 +189,7 @@ class Invoice extends Model
             foreach ($items as $item)
             {
                 $item->stock->quantity -= $item->quantity;
-                $item->save();
+                $item->stock->save();
             }
         }
 
