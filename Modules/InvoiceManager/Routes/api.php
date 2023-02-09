@@ -24,7 +24,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
                 Route::get('', ['as' => 'index', 'uses' => 'InvoiceManagerController@index', 'visible' => true]);
                 Route::get('/draft', ['as' => 'draft', 'uses' => 'InvoiceManagerController@draft', 'visible' => true]);
                 Route::get('/complete', ['as' => 'complete', 'uses' => 'InvoiceManagerController@complete', 'visible' => true]);
+                Route::get('/paid', ['as' => 'paid', 'uses' => 'InvoiceManagerController@paid', 'visible' => true]);
                 Route::post('', ['as' => 'store', 'uses' => 'InvoiceManagerController@store']);
+                Route::get('{invoice}/markAsComplete', ['as' => 'completeInvoice', 'uses' => 'InvoiceManagerController@completeInvoice']);
                 Route::get('{invoice}/show', ['as' => 'show', 'uses' => 'InvoiceManagerController@show']);
                 Route::get('{invoice}/destroy', ['as' => 'destroy', 'uses' => 'InvoiceManagerController@show']);
                 Route::put('{invoice}', ['as' => 'update', 'uses' => 'InvoiceManagerController@update']);

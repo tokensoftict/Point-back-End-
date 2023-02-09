@@ -26,6 +26,7 @@ use Modules\InvoiceManager\Entities\Invoice;
  * @property int $invoice_id
  * @property float $subtotal
  * @property float $total_paid
+ * @property float $discount
  * @property Carbon|null $payment_time
  * @property Carbon|null $payment_date
  * @property Carbon|null $created_at
@@ -46,7 +47,8 @@ class Payment extends Model
 		'customer_id' => 'int',
 		'invoice_id' => 'int',
 		'subtotal' => 'float',
-		'total_paid' => 'float'
+		'total_paid' => 'float',
+        'discount' => 'float'
 	];
 
 	protected $dates = [
@@ -62,9 +64,15 @@ class Payment extends Model
 		'invoice_id',
 		'subtotal',
 		'total_paid',
+        'discount',
 		'payment_time',
 		'payment_date'
 	];
+
+    public function getTotalPaidAttribute()
+    {
+        return $this->subtotal - $this->discount;
+    }
 
 	public function customer()
 	{
@@ -121,7 +129,8 @@ class Payment extends Model
             'invoice_id' =>  $invoice->id,
             'invoice_type'=> $invoiceType,
             'subtotal' =>  $invoice->sub_total,
-            'total_paid' =>  $invoice->sub_total,
+            'total_paid' =>  $invoice->sub_total - $request->get("discount"),
+            'discount' => $request->get("discount"),
             'payment_time' =>  Carbon::now()->toTimeString(),
             'payment_date' =>  dailyDate(),
         ]);
@@ -191,7 +200,7 @@ class Payment extends Model
                 'invoice_id' =>  $invoice->id,
                 'invoice_type'=> $invoiceType,
                 'payment_date' =>  dailyDate(),
-                'amount' => $invoice->sub_total,
+                'amount' => $invoice->sub_total - $request->get("discount"),
                 'payment_info' => json_encode($payment_data)
             ]));
 
@@ -204,7 +213,7 @@ class Payment extends Model
                     'customer_id' => $invoice->customer_id,
                     'invoice_number' => $invoice->invoice_number,
                     'invoice_id' =>  $invoice->id,
-                    'amount' => -($invoice->sub_total),
+                    'amount' => -($invoice->sub_total - $request->get("discount")),
                     'payment_date' => dailyDate(),
                 ];
 
@@ -215,8 +224,8 @@ class Payment extends Model
 
         if($invoiceType === Invoice::class)
         {
-            $invoice->total_amount_paid = $invoice->sub_total;
-            $invoice->status_id = Status::where("name", "complete")->first()->id;
+            $invoice->total_amount_paid = ($invoice->sub_total - $request->get("discount"));
+            $invoice->status_id = Status::where("name", "paid")->first()->id;
             $invoice->update();
         }
 

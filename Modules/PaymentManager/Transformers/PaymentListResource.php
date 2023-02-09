@@ -19,6 +19,7 @@ class PaymentListResource extends JsonResource
         "No",
         "Customer",
         "Invoice Number",
+        "Discount",
         "Total Paid",
         "Payment Type",
         "Date",
@@ -41,6 +42,8 @@ class PaymentListResource extends JsonResource
         Arr::set($data,"total_paid",$this->total_paid);
         Arr::set($data,"Invoice Number",$this->invoice_number);
         Arr::set($data,"Total Paid",number_format($this->total_paid,2));
+        Arr::set($data,"Discount",number_format($this->discount,2));
+
         Arr::set($data,"Payment Type",self::$payment_type[$this->invoice_type]);
         Arr::set($data,"Date",eng_str_date($this->payment_date));
         Arr::set($data,"Time",twelve_hour_time($this->payment_time));

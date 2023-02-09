@@ -38,6 +38,7 @@ class PurchaseOrderResource extends JsonResource
         \Arr::set($data,"Status",["name"=>$this->status->name,"label"=>$this->status->label]);
         \Arr::set($data,"Date",mysql_str_date($this->date_created));
         \Arr::set($data,"Total",number_format($this->total,2));
+        \Arr::set($data,"Total_",$this->total);
         \Arr::set($data,"No_of_Items", $this->purchase_order_items()->count());
 
         return $data;

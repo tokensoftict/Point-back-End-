@@ -159,13 +159,30 @@
             <td  align="right" class="text-right">Sub Total</td>
             <td  align="right" class="text-right">{{ number_format($invoice->sub_total,2) }}</td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td   align="right" class="text-right">Total</td>
-            <td  align="right" class="text-right"><b>{{ number_format(($invoice->sub_total -$invoice->discount_amount),2) }}</b></td>
-        </tr>
+        @if($invoice->status->name === "Complete" && isset( $invoice->payment))
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td  align="right" class="text-right">Discount</td>
+                <td  align="right" class="text-right"><b>{{ number_format(($invoice->payment->discount),2) }}</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td  align="right" class="text-right">Total Paid</td>
+                <td  align="right" class="text-right"><b>{{ number_format(($invoice->payment->total_paid),2) }}</b></td>
+            </tr>
+        @else
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td  align="right" class="text-right">Total</td>
+                <td  align="right" class="text-right"><b>{{ number_format(($invoice->sub_total),2) }}</b></td>
+            </tr>
+        @endif
         </tfoot>
     </table>
 

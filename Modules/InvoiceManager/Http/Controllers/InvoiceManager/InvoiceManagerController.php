@@ -65,6 +65,18 @@ class InvoiceManagerController extends Controller
 
     }
 
+    public function paid() : JsonResponse
+    {
+
+        return $this->success("Data fetched",
+            [
+                "columns" => InvoiceListResources::$columns,
+                "data" =>InvoiceListResources::collection(InvoiceListResources::collection(Invoice::query()->today()->paid()->get()))
+            ]
+        );
+
+    }
+
     public function store(InvoiceRequest $request) : JsonResponse
     {
         $invoice = Invoice::createInvoice($request);
@@ -112,10 +124,11 @@ class InvoiceManagerController extends Controller
     }
 
 
-    public function print_pos($id){
+    public function print_pos($id)
+    {
         $data = [];
         $invoice = Invoice::with(['create_user','customer','invoice_items'])->findorfail($id);
-        $invoice->payment = Payment::where('invoice_id',$id)->where("invoice_type",Invoice::class);
+        $invoice->payment = Payment::where('invoice_id',$id)->where("invoice_type",Invoice::class)->first();
         $invoice->paymentMethodTable = PaymentMethodTable::where('invoice_id',$id)->where("invoice_type",Invoice::class);
         $data['invoice'] =$invoice;
         $data['store'] =  $this->settings->store();
@@ -140,10 +153,11 @@ class InvoiceManagerController extends Controller
         return $pdf->stream('document.pdf');
     }
 
-    public function print_afour($id){
+    public function print_afour($id)
+    {
         $data = [];
         $invoice = Invoice::with(['create_user','customer','invoice_items'])->findorfail($id);
-        $invoice->payment = Payment::where('invoice_id',$id)->where("invoice_type",Invoice::class);
+        $invoice->payment = Payment::where('invoice_id',$id)->where("invoice_type",Invoice::class)->first();
         $invoice->paymentMethodTable = PaymentMethodTable::where('invoice_id',$id)->where("invoice_type",Invoice::class);
         $data['invoice'] = $invoice;
         $data['store'] =  $this->settings->store();
@@ -151,15 +165,26 @@ class InvoiceManagerController extends Controller
         return $pdf->stream('document.pdf');
     }
 
-    public function print_way_bill($id){
+    public function print_way_bill($id)
+    {
         $data = [];
         $invoice = Invoice::with(['created_by','customer','invoice_items'])->findorfail($id);
-        $invoice->payment = Payment::where('invoice_id',$id);
+        $invoice->payment = Payment::where('invoice_id',$id)->where("invoice_type",Invoice::class)->first();
         $invoice->paymentMethodTable = PaymentMethodTable::where('invoice_id',$id);
         $data['invoice'] = $invoice;
         $data['store'] =  $this->settings->store();
         $pdf = PDF::loadView("print.pos_afour_waybill",$data);
         return $pdf->stream('document.pdf');
+    }
+
+
+    public function completeInvoice(Invoice $invoice) : JsonResponse
+    {
+        $status = $invoice->complete();
+
+        if(is_array($status)) return $this->success("Success",['status'=>false,"errors"=>$status]);
+
+        return $this->success("Success",['status'=>true,'invoice'=> new InvoiceResource($invoice)]);
     }
 
 }

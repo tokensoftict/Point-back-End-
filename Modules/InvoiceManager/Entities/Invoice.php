@@ -141,6 +141,11 @@ class Invoice extends Model
         return $query->where("status_id",Status::where("name","Draft")->first()->id);
     }
 
+    public function scopepaid($query)
+    {
+        return $query->where("status_id",Status::where("name","Paid")->first()->id);
+    }
+
     public function scopetoday($query)
     {
         return $query->where("invoice_date",dailyDate());
@@ -162,6 +167,36 @@ class Invoice extends Model
         }
 
         return $query;
+    }
+
+
+    public function complete()
+    {
+        $items = $this->invoice_items;
+
+        $errors = [];
+
+        foreach($items as $item)
+        {
+            if($item->stock->quantity < $item->quantity)
+            {
+                $errors[] = $item->stock->name." does not have enough quantity to complete this invoice";
+            }
+        }
+
+        if(count($errors) === 0)
+        {
+            foreach ($items as $item)
+            {
+                $item->stock->quantity -= $item->quantity;
+                $item->save();
+            }
+        }
+
+        $this->status_id = Status::where("name","Complete")->first()->id;
+        $this->update();
+
+        return count($errors) > 0 ? $errors : true;
     }
 
     public static function createInvoice($request)
@@ -304,8 +339,11 @@ class Invoice extends Model
             $total_profit =   $total_selling_price -  $total_cost_price;
 
             //remove stock quantity from database
-            $stock['stock']->quantity -= $stock['prods']['selling_quantity'];
-            $stock['stock']->save();
+            //$stock['stock']->quantity -= $stock['prods']['selling_quantity'];
+            //$stock['stock']->save();
+
+            // we will remove the stock quantity when they complete the invoice
+
             //ending of removeing quantity
             $invoiceItems[$key] =  new InvoiceItem([
                 'invoice_id'=> $invoice->id,
