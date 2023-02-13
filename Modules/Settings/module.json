@@ -7,5 +7,10 @@
     "providers": [
         "Modules\\Settings\\Providers\\SettingsServiceProvider"
     ],
-    "files": []
+    "files": [],
+    "migration": {
+        "seeds": [
+            "Modules\\Settings\\Database\\Seeders"
+        ]
+    }
 }

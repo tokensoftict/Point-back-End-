@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Auth\Entities\User;
 use Modules\CustomerManager\Entities\Customer;
 use Modules\InvoiceManager\Entities\Invoice;
+use Modules\Settings\Entities\PaymentMethod;
 
 /**
  * Class CreditPaymentLog
@@ -60,7 +61,8 @@ class CreditPaymentLog extends Model
 		'invoice_number',
 		'invoice_id',
 		'amount',
-		'payment_date'
+		'payment_date',
+        'branch_id'
 	];
 
     protected $appends = ['sub_total'];
@@ -88,7 +90,7 @@ class CreditPaymentLog extends Model
 
 	public function payment_method_table()
 	{
-		return $this->belongsTo(PaymentMethodTable::class, 'payment_method_id');
+		return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
 	}
 
 	public function user()

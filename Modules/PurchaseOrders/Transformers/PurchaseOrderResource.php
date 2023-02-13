@@ -19,6 +19,7 @@ class PurchaseOrderResource extends JsonResource
     public static $columns = [
         "id",
         "Supplier",
+        "Branch",
         "Created_By",
         "Status",
         "Date",
@@ -33,6 +34,7 @@ class PurchaseOrderResource extends JsonResource
 
 
         \Arr::set($data,"id",$this->id);
+        \Arr::set($data,"Branch",getBranch()->name);
         \Arr::set($data,"Supplier",$this->supplier->name);
         \Arr::set($data,"Created_By",$this->created_user->name);
         \Arr::set($data,"Status",["name"=>$this->status->name,"label"=>$this->status->label]);

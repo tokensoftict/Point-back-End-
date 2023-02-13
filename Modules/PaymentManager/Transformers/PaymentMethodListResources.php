@@ -19,6 +19,7 @@ class PaymentMethodListResources extends JsonResource
     public static $columns = [
         "No",
         "Customer",
+        "Branch",
         "Invoice Number",
         "Payment Type",
         "Amount",
@@ -37,6 +38,7 @@ class PaymentMethodListResources extends JsonResource
         $data = [];
 
         Arr::set($data,"Customer",$this->customer->fullname);
+        Arr::set($data,"Branch",getBranch()->name);
         Arr::set($data,"Invoice Number",$this->payment->invoice_number);
         Arr::set($data,"Amount_",$this->amount);
         Arr::set($data,"Payment Type",self::$payment_type[$this->payment->invoice_type]);

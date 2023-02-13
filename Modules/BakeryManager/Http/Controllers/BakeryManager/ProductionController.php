@@ -19,7 +19,7 @@ class ProductionController extends Controller
     public function index() : JsonResponse{
 
         return $this->success("Data fetched",
-            ['columns'=>BakeryProductionListResources::$colunm,"data"=> BakeryProductionListResources::collection(Bakeryproduction::where("production_date",dailyDate())->get())]
+            ['columns'=>BakeryProductionListResources::$colunm,"data"=> BakeryProductionListResources::collection(Bakeryproduction::where("production_date",dailyDate())->where('branch_id',getBranch()->id)->get())]
         );
 
     }
@@ -65,7 +65,7 @@ class ProductionController extends Controller
         return $this->success("Data fetched",
             [
                 "columns" => BakeryProductionListResources::$colunm,
-                "data" =>  BakeryProductionListResources::collection(Bakeryproduction::query()->filterdata()->get())
+                "data" =>  BakeryProductionListResources::collection(Bakeryproduction::query()->where('branch_id',getBranch()->id)->filterdata()->get())
             ]
         );
     }

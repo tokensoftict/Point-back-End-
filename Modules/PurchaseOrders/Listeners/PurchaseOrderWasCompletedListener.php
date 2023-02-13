@@ -39,7 +39,7 @@ class PurchaseOrderWasCompletedListener
                         [
                             'received_date' => $event->purchase->date_completed,
                             'expiry_date' => $item->expiry_date,
-                            'quantity' => $item->qty,
+                             $event->purchase->branch->quantity_column => $item->qty,
                             'supplier_id' => $event->purchase->supplier_id,
                             'rawmaterial_id' => $item->purchase_id
                         ]

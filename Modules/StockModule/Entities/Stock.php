@@ -84,6 +84,8 @@ class Stock extends Model
         'last_updated_by' => 'int'
     ];
 
+    protected $guarded = [];
+/*
     protected $fillable = [
         'name',
         'description',
@@ -108,7 +110,7 @@ class Stock extends Model
         'user_id',
         'last_updated_by'
     ];
-
+*/
     public function brand()
     {
         return $this->belongsTo(Brand::class);
@@ -152,7 +154,7 @@ class Stock extends Model
 
     public function scopeavailable($query)
     {
-        return $query->enabled()->where("quantity",">",0);
+        return $query->enabled()->where(getQuantityColumn(),">",0);
     }
 
     public function scopeenabled($query)

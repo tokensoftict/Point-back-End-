@@ -9,6 +9,7 @@ namespace Modules\BakeryManager\Entities;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Settings\Entities\Branch;
 use Modules\StockModule\Entities\Stock;
 
 /**
@@ -65,6 +66,7 @@ class BakeryProductionProductsItem extends Model
         'estimate_total',
         'total',
         'quantity',
+        'branch_id'
     ];
 
 
@@ -77,6 +79,11 @@ class BakeryProductionProductsItem extends Model
 	{
 		return $this->belongsTo(Status::class);
 	}
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 
 	public function stock()
 	{

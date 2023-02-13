@@ -18,6 +18,7 @@ class PaymentListResource extends JsonResource
     public static $columns = [
         "No",
         "Customer",
+        "Branch",
         "Invoice Number",
         "Discount",
         "Total Paid",
@@ -39,6 +40,7 @@ class PaymentListResource extends JsonResource
         $data =  [];
 
         Arr::set($data,"Customer",$this->customer->fullname);
+        Arr::set($data,"Branch",getBranch()->name);
         Arr::set($data,"total_paid",$this->total_paid);
         Arr::set($data,"Invoice Number",$this->invoice_number);
         Arr::set($data,"Total Paid",number_format($this->total_paid,2));

@@ -38,6 +38,8 @@ class Rawmaterialbatch extends Model
         'expiry_date'
     ];
 
+    protected $guarded = [];
+/*
     protected $fillable = [
         'received_date',
         'expiry_date',
@@ -45,7 +47,7 @@ class Rawmaterialbatch extends Model
         'supplier_id',
         'rawmaterial_id'
     ];
-
+*/
     public function rawmaterial()
     {
         return $this->belongsTo(Rawmaterial::class);

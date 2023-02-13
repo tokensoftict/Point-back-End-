@@ -18,6 +18,7 @@ class MaterialTransferResource extends JsonResource
     public static $colunm = [
         "No",
         "name",
+        "Branch",
         "Status",
         "date",
         "time",
@@ -31,6 +32,7 @@ class MaterialTransferResource extends JsonResource
         $data =  [];
         \Arr::set($data,"id",$this->id);
         \Arr::set($data,"name",$this->name);
+        \Arr::set($data,"Branch",getBranch()->name);
         \Arr::set($data,"Status",["name"=>$this->status->name,"label"=>$this->status->label]);
         \Arr::set($data,"date",eng_str_date($this->production_date));
         \Arr::set($data,"time",twelve_hour_time($this->production_time));

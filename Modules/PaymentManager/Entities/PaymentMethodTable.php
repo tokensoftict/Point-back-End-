@@ -61,7 +61,8 @@ class PaymentMethodTable extends Model
 		'invoice_id',
 		'payment_date',
 		'amount',
-		'payment_info'
+		'payment_info',
+        'branch_id'
 	];
 
 	public function customer()
@@ -106,6 +107,24 @@ class PaymentMethodTable extends Model
         foreach(request()->get("filter") as $key=>$value)
         {
             $query->where($key,$value);
+        }
+
+        return $query;
+    }
+
+    public function scopefilterdata($query)
+    {
+        if(request()->get("filter"))
+        {
+            foreach (json_decode(request()->get("filter"),true) as $key => $value) {
+                if($key === "between")
+                {
+                    $query->whereBetween("payment_date",$value );
+                }
+                else {
+                    $query->where($key, $value);
+                }
+            }
         }
 
         return $query;

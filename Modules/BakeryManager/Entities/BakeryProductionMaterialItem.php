@@ -9,6 +9,7 @@ namespace Modules\BakeryManager\Entities;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Settings\Entities\Branch;
 
 /**
  * Class BakeryProductionMaterialItem
@@ -57,7 +58,8 @@ class BakeryProductionMaterialItem extends Model
         'production_time',
         'quantity',
         'cost_price',
-        'total'
+        'total',
+        'branch_id'
     ];
 
 	public function bakeryproduction()
@@ -69,6 +71,11 @@ class BakeryProductionMaterialItem extends Model
 	{
 		return $this->belongsTo(Rawmaterial::class);
 	}
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 
 	public function status()
 	{

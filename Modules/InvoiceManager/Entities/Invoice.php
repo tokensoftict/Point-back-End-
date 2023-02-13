@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Auth\Entities\User;
 use Modules\CustomerManager\Entities\Customer;
+use Modules\Settings\Entities\Branch;
 use Modules\StockModule\Entities\Stock;
 
 /**
@@ -93,12 +94,18 @@ class Invoice extends Model
         'sales_time',
         'void_reason',
         'date_voided',
-        'void_time'
+        'void_time',
+        'branch_id'
     ];
 
     public function create_user()  : BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function last_updated() : BelongsTo
@@ -178,7 +185,7 @@ class Invoice extends Model
 
         foreach($items as $item)
         {
-            if($item->stock->quantity < $item->quantity)
+            if($item->stock->{$this->branch->quantity_column} < $item->quantity)
             {
                 $errors[] = $item->stock->name." does not have enough quantity to complete this invoice";
             }
@@ -188,7 +195,7 @@ class Invoice extends Model
         {
             foreach ($items as $item)
             {
-                $item->stock->quantity -= $item->quantity;
+                $item->stock->{$this->branch->quantity_column} -= $item->quantity;
                 $item->stock->save();
             }
         }
@@ -224,6 +231,7 @@ class Invoice extends Model
             'last_updated_by' =>auth()->id(),
             'invoice_date' =>  $request->get('date'),
             'sales_time' =>Carbon::now()->toTimeString(),
+            'branch_id' => getBranch()->id
         ];
 
 
@@ -362,6 +370,7 @@ class Invoice extends Model
                 'total_profit'=>$total_profit,
                 'discount_type'=>'none',
                 'discount_amount'=>0,
+                'branch_id' => getBranch()->id
             ]);
 
 
@@ -388,6 +397,7 @@ class Invoice extends Model
                 'invoice_date' => $invoice_date,
                 'sales_time' =>$sales_time,
                 'customer_id' =>$customer_id,
+                'branch_id' => getBranch()->id
             ]);
         }
 
@@ -420,6 +430,7 @@ class Invoice extends Model
             'vat' => 0,
             'vat_amount' => 0,
             'last_updated_by' =>auth()->id(),
+            'branch_id' => getBranch()->id
         ];
 
         $invoice->update($invoice_data);

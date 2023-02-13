@@ -17,7 +17,9 @@ class MaterialTransferController extends Controller
     public function index(Request $request)
     {
         return $this->success("Data fetched",
-            ['columns'=>MaterialTransferResource::$colunm,"data"=> MaterialTransferResource::collection(Bakeryproduction::query()->filterdata()->get())]
+            ['columns'=>MaterialTransferResource::$colunm,"data"=> MaterialTransferResource::collection(Bakeryproduction::query()
+                ->where('branch_id',getBranch()->id)
+                ->filterdata()->get())]
         );
     }
 

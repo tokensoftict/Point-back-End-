@@ -19,6 +19,7 @@ class PurchaseOrderWithItemResources extends JsonResource
 
         \Arr::set($data,"id", $this->id);
         \Arr::set($data,"supplier",new SupplierResource($this->supplier));
+        \Arr::set($data,"Branch",$this->branch->name);
         \Arr::set($data,"created",$this->created_user->name);
         \Arr::set($data,"status",["name"=>$this->status->name,"label"=>$this->status->label]);
         \Arr::set($data,"date",mysql_str_date($this->date_created));

@@ -20,9 +20,12 @@ class AuthCollection extends JsonResource
     {
         $data =  parent::toArray($request);
         Arr::set($data,"token",$this->user_token);
+        Arr::set($data,"mybranches",$this->branches);
+        Arr::set($data,"branch_id",$this->branches);
         Arr::set($data,"usergroup",$this->usergroup);
         Arr::set($data,'permission',$this->usergroup->group_tasks()->get());
         Arr::set($data,"settings",new SettingsResources(collect(app()->make(Settings::class)->all())));
+        Arr::forget($data,["branches"]);
         return $data;
     }
 

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Auth\Entities\User;
 use Modules\BakeryManager\Http\Requests\ProductionRequest;
+use Modules\Settings\Entities\Branch;
 
 /**
  * Class Bakeryproduction
@@ -41,10 +42,6 @@ class Bakeryproduction extends Model
         'completed_id' => 'int'
 	];
 
-	protected $dates = [
-		'production_date',
-		'production_time'
-	];
 
 	protected $fillable = [
 		'name',
@@ -53,7 +50,8 @@ class Bakeryproduction extends Model
 		'status_id',
 		'remark',
 		'user_id',
-        'completed_id'
+        'completed_id',
+        'branch_id'
 	];
 
     public static $fields = [
@@ -103,6 +101,8 @@ class Bakeryproduction extends Model
         return $this->belongsTo(Status::class);
     }
 
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -116,6 +116,12 @@ class Bakeryproduction extends Model
     public function bakery_production_material_items()
     {
         return $this->hasMany(BakeryProductionMaterialItem::class);
+    }
+
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function bakery_production_products_items()
@@ -147,7 +153,7 @@ class Bakeryproduction extends Model
     {
         foreach ($this->bakery_production_material_items()->get() as $item)
         {
-            $item->rawmaterial->quantity =   $item->rawmaterial->quantity - $item->quantity;
+            $item->rawmaterial->{$this->branch->quantity_column} =   $item->rawmaterial->{$this->branch->quantity_column} - $item->quantity;
             $item->rawmaterial->update();
         }
 
@@ -185,7 +191,7 @@ class Bakeryproduction extends Model
 
                 $p->update();
 
-                $p->stock->quantity +=  $p->quantity;
+                $p->stock->{$this->branch->quantity_column} +=  $p->quantity;
 
                 $p->stock->save();
             }
@@ -204,16 +210,29 @@ class Bakeryproduction extends Model
     public static function saveProduction(ProductionRequest $request, Bakeryproduction $production = null)
     {
 
+        $production_time = Carbon::parse($request->get('production_time'))->toTimeString();
+
         $request->request->add(['status_id'=>Status::where("name",'draft')->first()->id]);
 
         $request->request->add(["user_id"=>auth()->id()]);
+
+        $request->request->remove("production_time");
 
         $materials = json_decode($request->get("items"),true);
 
         $products = json_decode($request->get("products"),true);
 
+        $request->request->remove("products");
 
-        \DB::transaction(function() use(&$production, &$request, &$materials, &$products){
+        $request->request->remove("items");
+
+        $data = $request->only(self::$fields);
+        $data['branch_id'] = getBranch()->id;
+        $data['production_time'] =  $production_time;
+
+        $production = self::create($data);
+
+        \DB::transaction(function() use(&$production, &$request, &$materials, &$products, &$production_time){
 
             $_materials = [];
 
@@ -221,14 +240,20 @@ class Bakeryproduction extends Model
 
             if($production)
             {
-                $production->update($request->only(self::$updateFields));
+                $data = $request->only(self::$updateFields);
+                $data['branch_id'] = getBranch()->id;
+
+                $production->update($request->only($data));
 
                 $production->bakery_production_material_items()->delete();
                 $production->bakery_production_products_items()->delete();
             }
             else
             {
-                $production = self::create($request->only(self::$fields));
+                $data = $request->only(self::$fields);
+                $data['branch_id'] = getBranch()->id;
+                $data['production_time'] =  $production_time;
+                $production = self::create($data);
             }
 
             foreach ($materials as $material)
@@ -240,7 +265,8 @@ class Bakeryproduction extends Model
                         "quantity" => $material['quantity'],
                         "cost_price" => $material['cost_price'],
                         "total" => ($material["quantity"] * $material['cost_price']),
-                        "production_date" => $request->get("production_date")
+                        "production_date" => $request->get("production_date"),
+                        'branch_id' => getBranch()->id
                     ]
                 );
             }
@@ -255,6 +281,7 @@ class Bakeryproduction extends Model
                         "selling_price" =>  $product['selling_price'],
                         "estimate_total" => $product['estimate_quantity'] * $product['selling_price'],
                         "production_date" => $request->get("production_date"),
+                        'branch_id' => getBranch()->id
                     ]
                 );
             }

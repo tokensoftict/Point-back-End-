@@ -24,6 +24,7 @@ class PurchaseOrderController extends Controller
              "columns" => PurchaseOrder::$tableColumn,
              "data" => PurchaseOrderResource::collection(
                  PurchaseOrder::with(['supplier','created_user','user','status'])
+                     ->where('branch_id',getBranch()->id)
                      ->where("type",$request->get("type"))
                          ->where("date_created",dailyDate())
                          ->orderBy("id","DESC")->get()
@@ -76,7 +77,7 @@ class PurchaseOrderController extends Controller
         return $this->success("Data fetched",
             [
                 "columns" => PurchaseOrderResource::$columns,
-                "data" =>  PurchaseOrderResource::collection(PurchaseOrder::query()->filterdata()->get())
+                "data" =>  PurchaseOrderResource::collection(PurchaseOrder::query()->where('branch_id',getBranch()->id)->filterdata()->get())
             ]
         );
     }

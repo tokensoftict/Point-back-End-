@@ -16,6 +16,7 @@ class InvoiceListResources extends JsonResource
     public static $columns = [
         "No",
         "Invoice Number",
+        "Branch",
         "Customer",
         "Status",
         "Sub Total",
@@ -30,6 +31,7 @@ class InvoiceListResources extends JsonResource
     {
         $data = [];
         Arr::set($data,"Invoice Number",$this->invoice_number);
+        Arr::set($data,"Branch",getBranch()->name);
         Arr::set($data,"ID",$this->id);
         Arr::set($data,"Customer",$this->customer->fullname);
         Arr::set($data,"Status",["label"=>$this->status->label, "name"=>$this->status->name]);

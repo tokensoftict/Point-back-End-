@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Modules\CustomerManager\Entities\Customer;
+use Modules\Settings\Entities\Branch;
 use Modules\StockModule\Entities\Stock;
 
 /**
@@ -85,12 +86,18 @@ class InvoiceItem extends Model
         'total_selling_price',
         'total_profit',
         'discount_type',
-        'discount_amount'
+        'discount_amount',
+        'branch_id'
     ];
 
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function invoice()

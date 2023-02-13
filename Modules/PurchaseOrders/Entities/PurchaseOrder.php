@@ -17,6 +17,7 @@ use Modules\BakeryManager\Entities\Rawmaterial;
 use Modules\BakeryManager\Entities\Rawmaterialbatch;
 use Modules\PurchaseOrders\Events\PurchaseOrderWasCompletedEvent;
 use Modules\PurchaseOrders\Http\Requests\PurchaseOrderRequest;
+use Modules\Settings\Entities\Branch;
 use Modules\Settings\Entities\Supplier;
 
 /**
@@ -73,12 +74,14 @@ class PurchaseOrder extends Model
         'status_id',
         'created_by',
         'updated_by',
-        'approved_by'
+        'approved_by',
+        'branch_id'
     ];
 
     public static array $tableColumn = [
         "No",
         "Supplier",
+        "Branch",
         "No_of_Items",
         "Total",
         "Date",
@@ -96,6 +99,11 @@ class PurchaseOrder extends Model
     public function created_user()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function approved_user()
@@ -160,7 +168,8 @@ class PurchaseOrder extends Model
                     "qty" => $item['quantity'],
                     "cost_price" =>  $item['cost_price'],
                     "selling_price" => $item['cost_price'],
-                    "added_by" => auth()->id()
+                    "added_by" => auth()->id(),
+                    "branch_id" => $request->get("branch_id")
                 ]
             );
         }
@@ -176,7 +185,8 @@ class PurchaseOrder extends Model
             "status_id" => $request->get("complete_purchase") === "1" ? Status::where("name","Complete")->first()->id :  Status::where("name","Draft")->first()->id,
             "created_by" =>  auth()->id(),
             "updated_by" =>  auth()->id(),
-            "approved_by" =>  auth()->id()
+            "approved_by" =>  auth()->id(),
+            "branch_id" => $request->get("branch_id")
         ];
 
         $po = NULL;

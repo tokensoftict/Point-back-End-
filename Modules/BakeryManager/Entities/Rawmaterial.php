@@ -33,6 +33,8 @@ class Rawmaterial extends Model
         'cost_price' => 'float'
     ];
 
+    protected $guarded = [];
+    /*
     protected $fillable = [
         'name',
         'description',
@@ -41,7 +43,7 @@ class Rawmaterial extends Model
         'cost_price',
         'status'
     ];
-
+    */
 
     public static $fields = [
         'name',
@@ -62,7 +64,8 @@ class Rawmaterial extends Model
 
     public function updateAvailableQuantity()
     {
-        $this->quantity = $this->rawmaterialbatches()->where("quantity",">",0)->sum("quantity");
+        $column = getQuantityColumn();
+        $this->{$column} = $this->rawmaterialbatches()->where($column,">",0)->sum($column);
         $this->update();
     }
 
@@ -86,7 +89,7 @@ class Rawmaterial extends Model
 
     public function scopeavailable($query)
     {
-        return $query->where("quantity",">",0);
+        return $query->where(getQuantityColumn(),">",0);
     }
 
 

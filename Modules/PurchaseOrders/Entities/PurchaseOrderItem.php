@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Modules\Auth\Entities\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Settings\Entities\Branch;
 
 /**
  * Class PurchaseOrderItem
@@ -64,13 +65,19 @@ class PurchaseOrderItem extends Model
 		'qty',
 		'cost_price',
 		'selling_price',
-		'added_by'
+		'added_by',
+        'branch_id'
 	];
 
 	public function user() : BelongsTo
     {
 		return $this->belongsTo(User::class, 'added_by');
 	}
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 
 	public function purchase_order() : BelongsTo
     {

@@ -40,6 +40,23 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
                 Route::delete('{bankAccount}', ['as' => 'destroy', 'uses' => 'BankController@destroy']);
             });
 
+
+
+            Route::prefix('branch')->as('branch.')->group(function () {
+                Route::get('', ['as' => 'index', 'uses' => 'BranchController@index', 'visible' => true]);
+                Route::get('list', ['as' => 'list', 'uses' => 'BranchController@listAll']);
+                Route::get('commercial', ['as' => 'commercial', 'uses' => 'BranchController@listAllCommercial','lable'=>'List all Commercial Banks']);
+                Route::get('create', ['as' => 'create', 'uses' => 'BranchController@create']);
+                Route::post('', ['as' => 'store', 'uses' => 'BranchController@store']);
+                Route::get('{branch}', ['as' => 'show', 'uses' => 'BranchController@show']);
+                Route::get('{branch}/edit', ['as' => 'edit', 'uses' => 'BranchController@edit']);
+                Route::get('{branch}/toggle', ['as' => 'toggle', 'uses' => 'BranchController@toggle']);
+                Route::put('{branch}', ['as' => 'update', 'uses' => 'BranchController@update']);
+                Route::delete('{branch}', ['as' => 'destroy', 'uses' => 'BranchController@destroy']);
+            });
+
+
+
             Route::prefix('category')->as('category.')->group(function () {
                 Route::get('', ['as' => 'index', 'uses' => 'CategoryController@index', 'visible' => true]);
                 Route::get('list', ['as' => 'list', 'uses' => 'CategoryController@listAll']);

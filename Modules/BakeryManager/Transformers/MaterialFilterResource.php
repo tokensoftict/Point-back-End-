@@ -19,6 +19,7 @@ class MaterialFilterResource extends JsonResource
 
         Arr::forget($data,"created_at");
         Arr::forget($data,"updated_at");
+        Arr::set($data, 'quantity', $this->{getQuantityColumn()});
         Arr::set($data,"cost_price",$this->cost_price);
         Arr::set($data,"materialtype",new MaterialTypeResource($this->materialtype));
 

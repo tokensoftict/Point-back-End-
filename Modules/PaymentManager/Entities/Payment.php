@@ -66,7 +66,8 @@ class Payment extends Model
 		'total_paid',
         'discount',
 		'payment_time',
-		'payment_date'
+		'payment_date',
+        'branch_id'
 	];
 
     public function getTotalPaidAttribute()
@@ -133,6 +134,7 @@ class Payment extends Model
             'discount' => $request->get("discount"),
             'payment_time' =>  Carbon::now()->toTimeString(),
             'payment_date' =>  dailyDate(),
+            'branch_id' => getBranch()->id
         ]);
 
         $payment_data = json_decode($request->get("payment_data"),true);
@@ -153,7 +155,8 @@ class Payment extends Model
                             'invoice_type' => $invoiceType,
                             'payment_date' => dailyDate(),
                             'amount' => $method['amount'],
-                            'payment_info' => json_encode($method)
+                            'payment_info' => json_encode($method),
+                            'branch_id' => getBranch()->id
                         ]);
                     }
                     else {
@@ -166,7 +169,8 @@ class Payment extends Model
                             'warehousestore_id' => NULL,
                             'payment_date' => dailyDate(),
                             'amount' => $method['amount'],
-                            'payment_info' => json_encode($method)
+                            'payment_info' => json_encode($method),
+                            'branch_id' => getBranch()->id
                         ];
                     }
 
@@ -181,12 +185,13 @@ class Payment extends Model
                 $credit_log = [
                     'payment_id' => $payment->id,
                     'user_id' => auth()->id(),
-                    'payment_method_id' => NULL,
+                    'payment_method_id' => 1, // just to get rid of error for payment method table id insted of payment method
                     'customer_id' =>$invoice->customer_id,
                     'invoice_number' =>$invoice->invoice_number,
                     'invoice_id' => $invoice->id,
                     'amount' => -($payment_method_id->amount),
                     'payment_date' => dailyDate(),
+                    'branch_id' => getBranch()->id
                 ];
                 CreditPaymentLog::create($credit_log);
             }
@@ -201,7 +206,8 @@ class Payment extends Model
                 'invoice_type'=> $invoiceType,
                 'payment_date' =>  dailyDate(),
                 'amount' => $invoice->sub_total - $request->get("discount"),
-                'payment_info' => json_encode($payment_data)
+                'payment_info' => json_encode($payment_data),
+                'branch_id' => getBranch()->id
             ]));
 
             if($request->get("payment_method") === 4)
@@ -215,6 +221,7 @@ class Payment extends Model
                     'invoice_id' =>  $invoice->id,
                     'amount' => -($invoice->sub_total - $request->get("discount")),
                     'payment_date' => dailyDate(),
+                    'branch_id' => getBranch()->id
                 ];
 
                 CreditPaymentLog::create($credit_log);

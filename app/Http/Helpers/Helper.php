@@ -5,7 +5,22 @@ use App\Models\Warehousestore;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use App\Classes\Settings;
+use Modules\Settings\Entities\Branch;
 use Spatie\Valuestore\Valuestore;
+
+
+function getQuantityColumn()
+{
+    $branch =  Branch::find(request()->get("branch_id")) ?? Branch::find(1);
+
+    return $branch->quantity_column;
+}
+
+
+function getBranch()
+{
+    return Branch::find(request()->get("branch_id")) ?? Branch::find(1);
+}
 
 function generateRandom($length = 25) {
     $characters = 'abcdefghijklmnopqrstuvwxyz_';
@@ -286,7 +301,7 @@ function getPaginate()
 
 function status($status){
     if(is_array($status))
-       return  \App\Models\Status::whereIn('name',$status)->pluck('id');
+        return  \App\Models\Status::whereIn('name',$status)->pluck('id');
     else
         return \App\Models\Status::where('name',$status)->first()->id;
 }
@@ -556,7 +571,7 @@ function invoice_status($status){
 
 
 function dailySales(){
-   return \App\Models\Invoice::where('invoice_date',dailyDate())->where('status','COMPLETE')->sum('total_amount_paid');
+    return \App\Models\Invoice::where('invoice_date',dailyDate())->where('status','COMPLETE')->sum('total_amount_paid');
 }
 
 
@@ -597,7 +612,7 @@ function getActualStore($product_type,$store_selected){
     $store = Warehousestore::find($store_selected);
 
     if($product_type == "NORMAL") {
-       return $store->packed_column;
+        return $store->packed_column;
     }
     if($product_type == "PACKED") {
         return $store->yard_column;

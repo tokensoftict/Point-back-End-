@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
                 Route::post('storeCreditPayment', ['as' => 'storeCreditPayment', 'uses' => 'PaymentManagerController@storeCreditPayment']);
                 Route::post('', ['as' => 'store', 'uses' => 'PaymentManagerController@store']);
                 Route::post('/custom', ['as' => 'custom', 'uses' => 'PaymentManagerController@custom']);
+                Route::post('/payment_by_method_custom', ['as' => 'payment_by_method_custom', 'uses' => 'PaymentManagerController@payment_by_method_custom']);
                 Route::put('{invoice}', ['as' => 'update', 'uses' => 'PaymentManagerController@update']);
             });
         });

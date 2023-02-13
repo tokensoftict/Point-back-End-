@@ -33,7 +33,7 @@ class InvoiceManagerController extends Controller
         return $this->success("Data fetched",
             [
                 "columns" => InvoiceListResources::$columns,
-                "data" =>InvoiceListResources::collection(Invoice::query()->today()->get())
+                "data" =>InvoiceListResources::collection(Invoice::query()->where('branch_id',getBranch()->id)->today()->get())
             ]
             );
 
@@ -46,7 +46,7 @@ class InvoiceManagerController extends Controller
         return $this->success("Data fetched",
             [
                 "columns" => InvoiceListResources::$columns,
-                "data" =>InvoiceListResources::collection(InvoiceListResources::collection(Invoice::query()->today()->draft()->get()))
+                "data" =>InvoiceListResources::collection(InvoiceListResources::collection(Invoice::query()->where('branch_id',getBranch()->id)->today()->draft()->get()))
             ]
         );
 
@@ -59,7 +59,7 @@ class InvoiceManagerController extends Controller
         return $this->success("Data fetched",
             [
                 "columns" => InvoiceListResources::$columns,
-                "data" =>InvoiceListResources::collection(InvoiceListResources::collection(Invoice::query()->today()->complete()->get()))
+                "data" =>InvoiceListResources::collection(InvoiceListResources::collection(Invoice::query()->where('branch_id',getBranch()->id)->today()->complete()->get()))
             ]
         );
 
@@ -71,7 +71,7 @@ class InvoiceManagerController extends Controller
         return $this->success("Data fetched",
             [
                 "columns" => InvoiceListResources::$columns,
-                "data" =>InvoiceListResources::collection(InvoiceListResources::collection(Invoice::query()->today()->paid()->get()))
+                "data" =>InvoiceListResources::collection(InvoiceListResources::collection(Invoice::query()->where('branch_id',getBranch()->id)->today()->paid()->get()))
             ]
         );
 
@@ -118,7 +118,7 @@ class InvoiceManagerController extends Controller
         return $this->success("Data fetched",
             [
                 "columns" => InvoiceListResources::$columns,
-                "data" =>InvoiceListResources::collection(Invoice::query()->filterdata()->get())
+                "data" =>InvoiceListResources::collection(Invoice::query()->where('branch_id',getBranch()->id)->filterdata()->get())
             ]
         );
     }

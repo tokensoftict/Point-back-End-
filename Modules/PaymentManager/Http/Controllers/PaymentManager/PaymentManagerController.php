@@ -30,7 +30,7 @@ class PaymentManagerController extends Controller
         return $this->success("Data fetched",
            [
                "columns" => PaymentListResource::$columns,
-               "data" =>  PaymentListResource::collection(Payment::query()->today()->get())
+               "data" =>  PaymentListResource::collection(Payment::query()->where('branch_id',getBranch()->id)->today()->get())
            ]
         );
     }
@@ -99,7 +99,18 @@ class PaymentManagerController extends Controller
             "Data fetched",
             [
                 "columns" => PaymentMethodListResources::$columns,
-                "data" => PaymentMethodTable::query()->today()->ignorecredit()->methodWise('payment_method_id',PaymentMethodListResources::class)
+                "data" => PaymentMethodTable::query()->where('branch_id',getBranch()->id)->today()->ignorecredit()->methodWise('payment_method_id',PaymentMethodListResources::class)
+            ]
+        );
+    }
+
+    public function payment_by_method_custom()
+    {
+        return $this->success(
+            "Data fetched",
+            [
+                "columns" => PaymentMethodListResources::$columns,
+                "data" => PaymentMethodTable::query()->where('branch_id',getBranch()->id)->filterdata()->ignorecredit()->methodWise('payment_method_id',PaymentMethodListResources::class)
             ]
         );
     }
@@ -110,7 +121,7 @@ class PaymentManagerController extends Controller
         return $this->success("Data fetched",
             [
                 "columns" => PaymentListResource::$columns,
-                "data" =>  PaymentListResource::collection(Payment::query()->filterdata()->get())
+                "data" =>  PaymentListResource::collection(Payment::query()->where('branch_id',getBranch()->id)->filterdata()->get())
             ]
         );
     }

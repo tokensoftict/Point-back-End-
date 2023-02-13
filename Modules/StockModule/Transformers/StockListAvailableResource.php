@@ -4,6 +4,7 @@ namespace Modules\StockModule\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
+use Modules\Settings\Entities\Branch;
 
 class StockListAvailableResource extends JsonResource
 {
@@ -16,6 +17,7 @@ class StockListAvailableResource extends JsonResource
 
     public static $coloumns = [
         "name",
+        "branch",
         "quantity",
         "Category",
         "Group",
@@ -31,9 +33,12 @@ class StockListAvailableResource extends JsonResource
     {
         $data =  []; //parent::toArray($request);
 
+        $branch = Branch::find(request()->get("branch_id")) ?? Branch::find(1);
+
         Arr::set($data,"id",$this->id);
         Arr::set($data,"name",$this->name);
-        Arr::set($data,"quantity",$this->quantity);
+        Arr::set($data,"branch", $branch->name);
+        Arr::set($data,"quantity",$this->{$branch->quantity_column});
         Arr::set($data,"Category",$this->category?->name);
         Arr::set($data,"Group",$this->productgroup?->name);
         Arr::set($data,"status",$this->status);

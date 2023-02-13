@@ -19,7 +19,7 @@ class StockFilterResource extends JsonResource
 
         Arr::set($data,"id",$this->id);
         Arr::set($data,"name",$this->name);
-        Arr::set($data,"quantity",$this->quantity);
+        Arr::set($data,"quantity",$this->{getQuantityColumn()});
         Arr::set($data,"selling_price",$this->selling_price);
 
         return $data;

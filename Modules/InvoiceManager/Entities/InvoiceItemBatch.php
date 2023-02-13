@@ -8,6 +8,8 @@ namespace Modules\InvoiceManager\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Modules\CustomerManager\Entities\Customer;
+use Modules\Settings\Entities\Branch;
 use Modules\StockModule\Entities\Stock;
 
 
@@ -69,12 +71,18 @@ class InvoiceItemBatch extends Model
         'profit',
         'quantity',
         'invoice_date',
-        'sales_time'
+        'sales_time',
+        'branch_id'
     ];
 
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function invoice()
