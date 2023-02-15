@@ -3,6 +3,7 @@
 namespace Modules\StockModule\Entities;
 
 
+use Arr;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -220,12 +221,14 @@ class Stock extends Model
         if($stock !== NULL)
         {
             $data = $request->all();
+            Arr::forget($data,['branch_id']);
             $data['last_updated_by'] = auth()->id();
             $stock->update($data);
         }
         else
         {
             $data = $request->all();
+            Arr::forget($data,['branch_id']);
             $data['last_updated_by'] = auth()->id();
             $data['user_id'] = auth()->id();
             $stock = Stock::create($data);
