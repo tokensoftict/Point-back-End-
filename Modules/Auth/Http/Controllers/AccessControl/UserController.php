@@ -58,4 +58,24 @@ class UserController extends Controller
         $this->toggleState($user);
         return $this->success("Data Fetched", new AuthCollection($user));
     }
+
+
+    public function updateProfile(UserRequest $request)
+    {
+        $user = User::find(auth()->id());
+
+        if(empty($request->get('password'))){
+            $request->request->remove('password');
+        }
+        else
+        {
+            $request->request->set('password',bcrypt($request->get('password')));
+        }
+
+        $user->update($request->only([ 'name','username','email','phone','password',]));
+
+        return $this->success("Data Fetched", new AuthCollection($user));
+
+    }
+
 }

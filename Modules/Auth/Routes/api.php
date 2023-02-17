@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
             Route::get('{user}', ['as' => 'show', 'uses' => 'UserController@show']);
             Route::get('{user}/toggle', ['as' => 'toggle', 'uses' => 'UserController@toggle']);
             Route::put('{user}', ['as' => 'update', 'uses' => 'UserController@update']);
+            Route::post('/myprofile', ['as' => 'myprofile', 'uses' => 'UserController@updateProfile']);
         });
 
     });
