@@ -118,6 +118,10 @@ class Bakeryproduction extends Model
         return $this->hasMany(BakeryProductionMaterialItem::class);
     }
 
+    public function bakery_production_logs()
+    {
+        return $this->hasMany(Bakeryproductionlog::class);
+    }
 
     public function branch()
     {

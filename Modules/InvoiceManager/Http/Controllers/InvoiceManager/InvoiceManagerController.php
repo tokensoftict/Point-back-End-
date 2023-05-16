@@ -4,11 +4,14 @@ namespace Modules\InvoiceManager\Http\Controllers\InvoiceManager;
 
 
 use App\Classes\Settings;
+use App\Models\Status;
 use App\Traits\RespondsWithHttpStatus;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\InvoiceManager\Entities\Invoice;
+use Modules\InvoiceManager\Entities\InvoiceItem;
 use Modules\InvoiceManager\Http\Requests\InvoiceRequest;
 use Modules\InvoiceManager\Transformers\InvoiceListResources;
 use Modules\InvoiceManager\Transformers\InvoiceResource;
@@ -185,6 +188,53 @@ class InvoiceManagerController extends Controller
         if(is_array($status)) return $this->success("Success",['status'=>false,"errors"=>$status]);
 
         return $this->success("Success",['status'=>true,'invoice'=> new InvoiceResource($invoice)]);
+    }
+
+
+    public function by_product(Request $request)
+    {
+        $filter = json_decode(request()->get("filter"),true);
+        $data = $filter['between'];
+        $status = $filter['status'];
+
+        $lists = InvoiceItem::query()->select(
+            'invoice_items.stock_id',
+           DB::raw( 'stocks.name as `Product Name`'),
+            DB::raw( 'SUM(invoice_items.quantity) as `Total Qty Sold`'),
+            DB::raw( 'SUM(invoice_items.quantity * (invoice_items.selling_price - invoice_items.cost_price)) as total_profit'),
+            DB::raw( 'SUM(invoice_items.quantity * (invoice_items.cost_price)) as `Total Cost Price`'),
+            DB::raw( 'SUM(invoice_items.quantity * (invoice_items.selling_price)) as `Total Selling Price`')
+        )
+            ->whereHas('invoice',function($q) use(&$data, &$status){
+            $q
+                ->whereBetween('invoice_date',[$data[0],$data[1]])
+                ->where(function($qq) use(&$data, &$status){
+                    if($status == "Paid")
+                    {
+                        $qq->orWhere("status_id", Status::where("name","Paid")->first()->id);
+                        $qq->orWhere("status_id", Status::where("name","Complete")->first()->id);
+                    }
+
+                    if($status == "Draft")
+                    {
+                        $qq->orwhere("status_id", Status::where("name","Draft")->first()->id);
+                    }
+
+                })->where('branch_id',getBranch()->id);
+        })
+            ->leftJoin('stocks', function($join){
+                $join->on('stock_id', '=', 'stocks.id');
+            })
+            ->groupBy('invoice_items.stock_id')
+            ->groupBy('stocks.name')
+            ->get()->map(function($item){
+                $item['total_profit'] = number_format($item['total_profit'],2);
+                $item['Total Cost Price'] = number_format($item['Total Cost Price'],2);
+                $item['Total Selling Price'] = number_format($item['Total Selling Price'],2);
+                return $item;
+            });
+            $data = $lists->count() > 0 ? $lists->toArray() : [];
+        return $this->success('data fetched', ['data'=>$data]);
     }
 
 }

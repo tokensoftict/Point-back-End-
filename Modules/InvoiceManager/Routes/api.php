@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
                 Route::post('/monthly', ['as' => 'monthly', 'uses' => 'InvoiceManagerController@monthlyreport', 'visible' => true]);
                 Route::post('/by_user', ['as' => 'by_user', 'uses' => 'InvoiceManagerController@report', 'visible' => true]);
                 Route::post('/by_customer', ['as' => 'by_customer', 'uses' => 'InvoiceManagerController@report', 'visible' => true]);
+                Route::post('/by_product', ['as' => 'by_product', 'uses' => 'InvoiceManagerController@by_product', 'visible' => true]);
             });
 
         });

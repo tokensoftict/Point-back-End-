@@ -43,7 +43,10 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
                 Route::get('{bakeryproduction}/show', ['as' => 'show', 'uses' => 'ProductionController@show']);
                 Route::put('{bakeryproduction}/update', ['as' => 'update', 'uses' => 'ProductionController@update']);
                 Route::put('{bakeryproduction}/complete', ['as' => 'complete', 'uses' => 'ProductionController@complete']);
+                Route::post('logproduction/{bakeryproduction}/{stock}', ['as' => 'log', 'uses' => 'ProductionController@logproduction']);
+                Route::get('viewproduction/{bakeryproduction}/{stock}', ['as' => 'log', 'uses' => 'ProductionController@viewproduction']);
                 Route::delete('{bakeryproduction}', ['as' => 'destroy', 'uses' => 'ProductionController@destroy']);
+                Route::delete('log/destroy/{bakeryproductionlog}', ['as' => 'destroy_log', 'uses' => 'ProductionController@destroyLog']);
                 Route::post('/custom', ['as' => 'custom', 'uses' => 'ProductionController@custom']);
             });
 

@@ -30,6 +30,7 @@ class BakeryProductionResource extends JsonResource
         \Arr::set($data,"completed_by",new AuthCollection($this->completed));
         \Arr::set($data,"bakery_production_products_items",BakeryProductionProductItemResource::collection($this->bakery_production_products_items));
         \Arr::set($data,"bakery_production_material_items",BakeryProductionMaterialItemResource::collection($this->bakery_production_material_items));
+        Arr::set($data, 'bakery_production_logs', $this->bakery_production_logs->toArray());
 
         return $data;
     }
