@@ -17,5 +17,6 @@ class SettingsDatabaseSeeder extends Seeder
         Model::unguard();
 
          $this->call(BanksSeeder::class);
+         $this->call(StoreSettingsSeederTableSeeder::class);
     }
 }
