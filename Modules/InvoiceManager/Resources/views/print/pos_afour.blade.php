@@ -104,6 +104,10 @@
             <td>{{ $invoice->customer->firstname }} {{ $invoice->customer->lastname }}</td>
         </tr>
         <tr>
+            <td  style="font-size: 8pt">Branch</td>
+            <td  style="font-size: 8pt">{{ $invoice->branch->name }}</td>
+        </tr>
+        <tr>
             <td>Status</td>
             <td>{{ $invoice->status }}</td>
         </tr>

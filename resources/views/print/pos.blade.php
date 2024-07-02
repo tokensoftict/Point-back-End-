@@ -82,6 +82,10 @@
             <td  style="font-size: 8pt">Status</td>
             <td  style="font-size: 8pt">{{ $invoice->status->name }}</td>
         </tr>
+        <tr>
+            <td  style="font-size: 8pt">Branch</td>
+            <td  style="font-size: 8pt">{{ $invoice->branch->name }}</td>
+        </tr>
         @if($invoice->status->name === "Complete")
             <tr>
                 <td>Mode of Payment</td>

@@ -97,9 +97,13 @@
            <td>Customer</td>
            <td>{{ $invoice->customer->firstname }} {{ $invoice->customer->lastname }}</td>
        </tr>
+       <tr>
+           <td  style="font-size: 8pt">Branch</td>
+           <td  style="font-size: 8pt">{{ $invoice->branch->name }}</td>
+       </tr>
         <tr>
             <td>Sales Representative</td>
-            <td>{{ $invoice->customer->name }}</td>
+            <td>{{ $invoice->create_user->name }}</td>
         </tr>
     </table>
 

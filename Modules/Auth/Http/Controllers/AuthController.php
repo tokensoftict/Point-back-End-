@@ -16,9 +16,14 @@ class AuthController extends Controller
 
     public function auth(UserLoginRequest $request) : JsonResponse
     {
-        if(!auth()->attempt($request->only(['email', 'password']))){
+        $email = $request->get("email");
+
+        $data['username'] = $email;
+        $data['password'] = $request->get("password");
+
+        if(!auth()->attempt($data)){
             return  $this->failure(
-                "Email & Password does not match with our record.",
+                "Username & Password does not match with our record.",
                 [
                     'status' => false,
                     'message' => 'Email & Password does not match with our record.',
@@ -28,7 +33,7 @@ class AuthController extends Controller
         }
 
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('username', $request->email)->first();
 
         return $this->success(
             "User Logged In Successfully",

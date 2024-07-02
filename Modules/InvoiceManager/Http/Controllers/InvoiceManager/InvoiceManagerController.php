@@ -130,7 +130,7 @@ class InvoiceManagerController extends Controller
     public function print_pos($id)
     {
         $data = [];
-        $invoice = Invoice::with(['create_user','customer','invoice_items'])->findorfail($id);
+        $invoice = Invoice::with(['create_user','customer','invoice_items', 'branch'])->findorfail($id);
         $invoice->payment = Payment::where('invoice_id',$id)->where("invoice_type",Invoice::class)->first();
         $invoice->paymentMethodTable = PaymentMethodTable::where('invoice_id',$id)->where("invoice_type",Invoice::class);
         $data['invoice'] =$invoice;
@@ -159,7 +159,7 @@ class InvoiceManagerController extends Controller
     public function print_afour($id)
     {
         $data = [];
-        $invoice = Invoice::with(['create_user','customer','invoice_items'])->findorfail($id);
+        $invoice = Invoice::with(['create_user','customer','invoice_items', 'branch'])->findorfail($id);
         $invoice->payment = Payment::where('invoice_id',$id)->where("invoice_type",Invoice::class)->first();
         $invoice->paymentMethodTable = PaymentMethodTable::where('invoice_id',$id)->where("invoice_type",Invoice::class);
         $data['invoice'] = $invoice;
@@ -171,7 +171,7 @@ class InvoiceManagerController extends Controller
     public function print_way_bill($id)
     {
         $data = [];
-        $invoice = Invoice::with(['created_by','customer','invoice_items'])->findorfail($id);
+        $invoice = Invoice::with(['create_user','customer','invoice_items', 'branch'])->findorfail($id);
         $invoice->payment = Payment::where('invoice_id',$id)->where("invoice_type",Invoice::class)->first();
         $invoice->paymentMethodTable = PaymentMethodTable::where('invoice_id',$id);
         $data['invoice'] = $invoice;
