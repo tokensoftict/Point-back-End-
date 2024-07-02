@@ -37,6 +37,9 @@ class BanksSeeder extends Seeder
             'Unity Bank' => '215',
             'Wema Bank' => '035',
             'Zenith Bank' => '057',
+            'Monie Point Micro finance Bank' => "00001",
+            'Opay' => '00002',
+            'PalmPay' => "00003"
         ];
 
         $_insert = [];

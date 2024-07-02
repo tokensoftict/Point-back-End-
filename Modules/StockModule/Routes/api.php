@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
                 Route::post('/find', ['as' => 'find', 'uses' => 'StockController@find']);
                 Route::post('/findAvailable', ['as' => 'findAvailable', 'uses' => 'StockController@findAvailable']);
+                Route::post('/receive_stock', ['as' => 'receive_stock', 'uses' => 'StockController@receive_stock']);
 
             });
 

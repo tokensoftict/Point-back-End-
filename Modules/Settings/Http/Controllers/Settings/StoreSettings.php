@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\Auth\Entities\Module;
 use Modules\Auth\Entities\Permission;
 use Modules\Auth\Entities\Task;
+use Modules\Settings\Entities\Branch;
 use Modules\Settings\Http\Requests\StoreSettingsRequest;
 use Modules\Settings\Transformers\SettingsResources;
 
@@ -55,6 +56,14 @@ class StoreSettings extends Controller
         }
 
         $this->settings->put($data);
+
+        $branch = Branch::find(1);
+
+        $branch->address_1 = $data['address_1'];
+        $branch->address_2 = $data['address_2'];
+        $branch->phone = $data['contact_number'];
+
+        $branch->update();
 
         return $this->success("Data fetched", $store);
     }

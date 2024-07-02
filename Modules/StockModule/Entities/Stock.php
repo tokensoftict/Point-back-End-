@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Auth\Entities\User;
+use Modules\Settings\Entities\Branch;
 use Modules\Settings\Entities\Brand;
 use Modules\Settings\Entities\Category;
 use Modules\Settings\Entities\Classification;
@@ -21,6 +22,7 @@ use Modules\Settings\Transformers\ManufacturerResource;
 use Modules\Settings\Transformers\ProductGroupResource;
 use Modules\Settings\Transformers\SupplierResource;
 use Modules\StockModule\Http\Requests\StockRequest;
+use Modules\StockModule\Transformers\StockListResource;
 
 /**
  * Class Stock
@@ -210,7 +212,9 @@ class Stock extends Model
             'classification' => ClassificationResource::collection(Classification::where("status",1)->get()),
             'manufacturer' => ManufacturerResource::collection(Manufacturer::where("status",1)->get()),
             'productgroup' => ProductGroupResource::collection(Productgroup::where("status",1)->get()),
-            'suppliers' => SupplierResource::collection(Supplier::where("status",1)->get())
+            'suppliers' => SupplierResource::collection(Supplier::where("status",1)->get()),
+            'branches' => BrandResource::collection(Branch::all()),
+            'stocks' =>Stock::select("id", "name")->get()
         ];
     }
 

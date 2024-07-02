@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Settings\Entities\Branch;
 use Modules\StockModule\Entities\Stock;
 use Modules\StockModule\Http\Requests\StockRequest;
 use Modules\StockModule\Transformers\StockFilterResource;
@@ -82,6 +83,17 @@ class StockController extends Controller
     public function toggle(Stock $stock)
     {
         $this->toggleState($stock);
+        return  $this->success("Data fetched",new StockResource($stock));
+    }
+
+
+
+    public function receive_stock(Request $request)
+    {
+        $stock = Stock::find($request->get('stock_id'));
+        $branch = Branch::find($request->get("branch_id"));
+        $stock->{$branch->quantity_column} += $request->get("quantity");
+        $stock->update();
         return  $this->success("Data fetched",new StockResource($stock));
     }
 

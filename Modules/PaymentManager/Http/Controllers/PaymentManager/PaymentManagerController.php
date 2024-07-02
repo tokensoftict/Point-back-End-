@@ -56,7 +56,7 @@ class PaymentManagerController extends Controller
         $log->payment_id = $payment->id;
         $log->save();
 
-       return $this->success("Data fetched", ['status'=>true,'data'=>new PaymentListResource($payment)]);
+       return $this->success("Data fetched", ['status'=>true,'receipt_url' => route("invoice.pos_print", $payment->invoice_id),'data'=>new PaymentListResource($payment)]);
     }
 
     public function store(PaymentRequest $request) : JsonResponse
@@ -67,7 +67,7 @@ class PaymentManagerController extends Controller
 
         $payment = Payment::createPayment($request,$invoice,Invoice::class);
 
-        return $this->success("Data fetched", ['status'=>true,'data'=>new PaymentListResource($payment)]);
+        return $this->success("Data fetched", ['status'=>true,'receipt_url' => route("invoice.pos_print", $payment->invoice_id),'data'=>new PaymentListResource($payment)]);
 
     }
 

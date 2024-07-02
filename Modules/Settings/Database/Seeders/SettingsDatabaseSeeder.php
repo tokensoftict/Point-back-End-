@@ -18,5 +18,6 @@ class SettingsDatabaseSeeder extends Seeder
 
          $this->call(BanksSeeder::class);
          $this->call(StoreSettingsSeederTableSeeder::class);
+         $this->call(BranchesSeederTableSeeder::class);
     }
 }
