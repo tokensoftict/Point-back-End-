@@ -288,7 +288,7 @@ class Invoice extends Model
         foreach ($stocks as $key=>$stock)
         {
 
-            if($stock->quantity <= $prods[$stock->id]['selling_quantity'])
+            if($stock->quantity < $prods[$stock->id]['selling_quantity'])
             {
                 $status = true;
                 $errors[$key] = "Not enough quantity to process ".$stock->name;
