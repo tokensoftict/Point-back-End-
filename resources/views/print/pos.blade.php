@@ -50,7 +50,9 @@
     </style>
 </head>
 <body>
+<!--
 <h3 id="logo" class="text-center"><br><img style="max-height:30px;" src="{{ public_path("img/". $store->logo) }}" alt='Logo'></h3>
+-->
 <div id="printbox">
     <h2 style="margin:-2px;padding: 0px" class="text-center">{{ $store->name}}</h2>
     <div align="center" style="font-size: 8pt">
